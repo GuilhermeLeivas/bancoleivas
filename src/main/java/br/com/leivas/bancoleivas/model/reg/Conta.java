@@ -11,7 +11,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "REGCONTA")
+@Table(name = "REGCONTA", indexes = {
+        @Index(columnList = "numero"),
+})
 @SequenceGenerator(name = "seqRegConta", sequenceName = "SEQREGCONTA", allocationSize = 1)
 public class Conta extends BaseEntity {
 
