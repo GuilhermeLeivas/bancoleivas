@@ -1,7 +1,9 @@
 package br.com.leivas.bancoleivas.model;
 
-import lombok.*;
-import org.hibernate.annotations.OptimisticLock;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,9 +1,11 @@
 package br.com.leivas.bancoleivas.model.reg;
 
 import br.com.leivas.bancoleivas.model.BaseEntity;
+import br.com.leivas.bancoleivas.model.fin.Transacao;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
@@ -28,4 +30,18 @@ public class Conta extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "PESSOAID", referencedColumnName = "ID")
     private Pessoa pessoa;
+    @Column
+    private BigDecimal saldo = BigDecimal.ZERO;
+
+    public boolean possuiSaldoParaTransacao(Transacao transacao) {
+        return this.saldo.compareTo(transacao.getValor()) > 0;
+    }
+
+    public void adicionaFundos(BigDecimal valor) {
+        this.saldo = this.saldo.add(valor);
+    }
+
+    public void removeFundos(BigDecimal valor) {
+        this.saldo = this.saldo.subtract(valor);
+    }
 }

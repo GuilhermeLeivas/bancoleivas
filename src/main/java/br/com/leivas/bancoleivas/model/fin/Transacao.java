@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.fin;
 
+import br.com.leivas.bancoleivas.command.ITransacaoCommand;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "FINTRANSACAO")
 @SequenceGenerator(name = "seqFinTransacao", sequenceName = "SEQFINTRANSACAO", allocationSize = 1)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Transacao extends BaseEntity {
 
     @Id
@@ -30,4 +32,7 @@ public class Transacao extends BaseEntity {
     private Conta contaDestino;
     @Column
     private BigDecimal valor;
+
+    @Transient
+    private ITransacaoCommand transacaoCommand;
 }
