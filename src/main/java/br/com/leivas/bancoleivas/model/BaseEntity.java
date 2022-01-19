@@ -14,7 +14,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
-    @OptimisticLock(excluded = false)
+    @Version
     private Integer optmisticklock;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtCreate;
