@@ -4,11 +4,7 @@ import br.com.leivas.bancoleivas.command.ITransacaoCommand;
 
 public class ITransacaoCommandFactory {
 
-    private enum TipoTransacao {
-        TRANSFERENCIA, DEPOSITO
+    public ITransacaoCommand get(int codigoTransacao) {
+        return null;
     }
-
-//    public ITransacaoCommand get(String tipoTransacao) {
-//
-//    }
 }

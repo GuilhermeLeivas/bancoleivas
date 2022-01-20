@@ -32,6 +32,8 @@ public class Transacao extends BaseEntity {
     private Conta contaDestino;
     @Column
     private BigDecimal valor;
+    @Column
+    private Long numeroProtocolo;
 
     @Transient
     private ITransacaoCommand transacaoCommand;
