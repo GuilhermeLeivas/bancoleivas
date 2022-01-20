@@ -26,10 +26,10 @@ public class Transacao extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqFinTransacao")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "CONTAORIGEM", referencedColumnName = "ID")
+    @JoinColumn(name = "CONTAORIGEMID", referencedColumnName = "ID")
     private Conta contaOrigem;
     @ManyToOne
-    @JoinColumn(name = "CONTADESTINO", referencedColumnName = "ID")
+    @JoinColumn(name = "CONTADESTINOID", referencedColumnName = "ID")
     private Conta contaDestino;
     @Column
     private BigDecimal valor;
