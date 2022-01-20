@@ -6,7 +6,7 @@ import br.com.leivas.bancoleivas.model.reg.Conta;
 
 public class TransferenciaCommand implements ITransacaoCommand {
     @Override
-    public void executeTransacao(Transacao transacao) {
+    public void execute(Transacao transacao) {
         Conta contaOrigem = transacao.getContaOrigem();
         Conta contaDestino = transacao.getContaDestino();
         if (!contaOrigem.possuiSaldoParaTransacao(transacao)) {
@@ -17,7 +17,7 @@ public class TransferenciaCommand implements ITransacaoCommand {
     }
 
     @Override
-    public void unexecuteTransacao(Transacao transacao) {
+    public void unExecute(Transacao transacao) {
         Conta contaOrigem = transacao.getContaOrigem();
         Conta contaDestino = transacao.getContaDestino();
         contaOrigem.adicionaFundos(transacao.getValor());

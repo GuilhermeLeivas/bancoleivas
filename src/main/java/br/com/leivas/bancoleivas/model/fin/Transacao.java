@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.fin;
 
+import br.com.leivas.bancoleivas.command.ICommand;
 import br.com.leivas.bancoleivas.command.ITransacaoCommand;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;

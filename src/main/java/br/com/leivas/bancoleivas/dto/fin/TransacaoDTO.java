@@ -8,12 +8,13 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+
 @Getter
 @ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class TransacaoDTO extends BaseDTO {
-
+    private Integer codigoTransacao;
     private UUID numeroContaOrigem;
     private UUID numeroContaDestino;
     private BigDecimal valor;
