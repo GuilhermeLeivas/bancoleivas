@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "FINLANCAMENTOEXTRATO")
 @SequenceGenerator(name = "seqFinLancamento", sequenceName = "SEQFINLANCAMENTOEXTRATO", allocationSize = 1)

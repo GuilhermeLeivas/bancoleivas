@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Getter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "REGCONTA", indexes = {
         @Index(columnList = "numero"),

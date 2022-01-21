@@ -12,7 +12,6 @@ import java.util.UUID;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class TransacaoDTO extends BaseDTO {
     private Integer codigoTransacao;
     private UUID numeroContaOrigem;

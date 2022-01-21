@@ -1,7 +1,6 @@
 package br.com.leivas.bancoleivas.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -12,7 +11,6 @@ import java.util.Date;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
