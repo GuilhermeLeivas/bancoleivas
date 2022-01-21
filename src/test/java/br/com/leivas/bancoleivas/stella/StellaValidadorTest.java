@@ -17,7 +17,7 @@ public class StellaValidadorTest {
 
     @Test
     public void cnpjValidadorTest() {
-        String cnpj = "08644467000186";
+        String cnpj = "20139621000168";
         boolean isCNPJEligigle = new CNPJValidator().isEligible(cnpj);
         assertTrue(isCNPJEligigle);
     }
