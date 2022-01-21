@@ -12,15 +12,15 @@ public class TransferenciaCommand implements ITransacaoCommand {
         if (!contaOrigem.possuiSaldoParaTransacao(transacao)) {
             throw new SaldoInsuficienteException();
         }
-        contaOrigem.removeFundos(transacao.getValor());
-        contaDestino.adicionaFundos(transacao.getValor());
+        contaOrigem.removeFundosTransacao(transacao);
+        contaDestino.adicionaFundosTransacao(transacao);
     }
 
     @Override
     public void unExecute(Transacao transacao) {
         Conta contaOrigem = transacao.getContaOrigem();
         Conta contaDestino = transacao.getContaDestino();
-        contaOrigem.adicionaFundos(transacao.getValor());
-        contaDestino.removeFundos(transacao.getValor());
+        contaOrigem.adicionaFundosTransacao(transacao);
+        contaDestino.removeFundosTransacao(transacao);
     }
 }
