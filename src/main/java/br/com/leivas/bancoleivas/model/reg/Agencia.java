@@ -10,7 +10,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "REGAGENCIA")
-@SequenceGenerator(name = "seqRegAgencia", sequenceName = "REGAGENCIA", allocationSize = 1)
+@SequenceGenerator(name = "seqRegAgencia", sequenceName = "SEQREGAGENCIA", allocationSize = 1)
 public class Agencia extends BaseEntity {
 
     @Id
