@@ -1,6 +1,6 @@
 package br.com.leivas.bancoleivas.factory;
 
-import br.com.leivas.bancoleivas.command.ITransacaoCommand;
+import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
 import br.com.leivas.bancoleivas.exception.custom.FalhaNaGeracaoDeTransacao;
 import br.com.leivas.bancoleivas.exception.custom.TransacaoNaoEncontradaException;
 
@@ -10,11 +10,11 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TransacaoCommandFactory implements IFactory<Integer, ITransacaoCommand> {
+public class TransacaoStrategyFactory implements IFactory<Integer, ITransacaoStrategy> {
 
     private enum IdentificadorTransacao {
-        TRANSFERENCIA(200, "TransferenciaCommand"),
-        DEPOSITO(201, "DepositoCommand");
+        TRANSFERENCIA(200, "TransferenciaStrategy"),
+        DEPOSITO(201, "DepositoStrategy");
         private final Integer codigo;
         private final String transacaoCommand;
 
@@ -40,13 +40,13 @@ public class TransacaoCommandFactory implements IFactory<Integer, ITransacaoComm
     }
 
     @Override
-    public ITransacaoCommand produce(Integer codigo) {
+    public ITransacaoStrategy produce(Integer codigo) {
         IdentificadorTransacao transacaoCandidata = IdentificadorTransacao.identificadorTransacaoPorCodigo(codigo);
         String comandoDaTransacao = transacaoCandidata.getTransacaoCommand();
         try {
             Class<?> classRef = Class.forName(comandoDaTransacao);
             Constructor<?> commandConstructor = classRef.getConstructor();
-            return (ITransacaoCommand) commandConstructor.newInstance();
+            return (ITransacaoStrategy) commandConstructor.newInstance();
         } catch (Exception ex) {
             Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, "Falha ao produzir comando para transação");
             throw new FalhaNaGeracaoDeTransacao();

@@ -1,12 +1,12 @@
-package br.com.leivas.bancoleivas.command;
+package br.com.leivas.bancoleivas.strategy;
 
 import br.com.leivas.bancoleivas.exception.custom.SaldoInsuficienteException;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 
-public class TransferenciaCommand implements ITransacaoCommand {
+public class TransferenciaCommand implements ITransacaoStrategy {
     @Override
-    public void execute(Transacao transacao) {
+    public void executeStrategy(Transacao transacao) {
         Conta contaOrigem = transacao.getContaOrigem();
         Conta contaDestino = transacao.getContaDestino();
         if (!contaOrigem.possuiSaldoParaTransacao(transacao)) {
@@ -14,13 +14,5 @@ public class TransferenciaCommand implements ITransacaoCommand {
         }
         contaOrigem.removeFundosTransacao(transacao);
         contaDestino.adicionaFundosTransacao(transacao);
-    }
-
-    @Override
-    public void unExecute(Transacao transacao) {
-        Conta contaOrigem = transacao.getContaOrigem();
-        Conta contaDestino = transacao.getContaDestino();
-        contaOrigem.adicionaFundosTransacao(transacao);
-        contaDestino.removeFundosTransacao(transacao);
     }
 }

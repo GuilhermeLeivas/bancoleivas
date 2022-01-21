@@ -1,7 +1,6 @@
 package br.com.leivas.bancoleivas.model.fin;
 
-import br.com.leivas.bancoleivas.command.ICommand;
-import br.com.leivas.bancoleivas.command.ITransacaoCommand;
+import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import lombok.Getter;
@@ -37,5 +36,5 @@ public class Transacao extends BaseEntity {
     private Long numeroProtocolo;
 
     @Transient
-    private ITransacaoCommand transacaoCommand;
+    private ITransacaoStrategy executionStrategy;
 }
