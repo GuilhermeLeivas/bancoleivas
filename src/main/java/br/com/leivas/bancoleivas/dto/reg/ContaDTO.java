@@ -9,7 +9,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class ContaDTO extends BaseDTO {
 
     private PessoaDTO pessoa;

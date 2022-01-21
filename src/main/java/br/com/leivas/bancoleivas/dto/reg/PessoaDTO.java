@@ -9,6 +9,5 @@ import lombok.ToString;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class PessoaDTO extends BaseDTO {
 }

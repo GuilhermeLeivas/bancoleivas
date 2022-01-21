@@ -1,7 +1,6 @@
 package br.com.leivas.bancoleivas.model.reg;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "REGPESSOAFISICA")
 public class PessoaFisica extends Pessoa {

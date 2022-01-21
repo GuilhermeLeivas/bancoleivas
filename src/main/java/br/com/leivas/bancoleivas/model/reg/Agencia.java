@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "REGAGENCIA")
 @SequenceGenerator(name = "seqRegAgencia", sequenceName = "REGAGENCIA", allocationSize = 1)

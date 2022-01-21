@@ -2,14 +2,12 @@ package br.com.leivas.bancoleivas.model.reg;
 
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "REGCADASTRONACIONAL", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"numero", "nrFilial", "digito"})})

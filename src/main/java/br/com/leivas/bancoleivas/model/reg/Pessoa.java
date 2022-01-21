@@ -1,14 +1,13 @@
 package br.com.leivas.bancoleivas.model.reg;
 
 import br.com.leivas.bancoleivas.model.BaseEntity;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "REGPESSOA")
 @SequenceGenerator(name = "seqRegPessoa", sequenceName = "SEQREGPESSOA", allocationSize = 1)
