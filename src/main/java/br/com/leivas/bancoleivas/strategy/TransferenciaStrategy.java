@@ -4,7 +4,7 @@ import br.com.leivas.bancoleivas.exception.custom.SaldoInsuficienteException;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 
-public class TransferenciaCommand implements ITransacaoStrategy {
+public class TransferenciaStrategy implements ITransacaoStrategy {
     @Override
     public void executeStrategy(Transacao transacao) {
         Conta contaOrigem = transacao.getContaOrigem();

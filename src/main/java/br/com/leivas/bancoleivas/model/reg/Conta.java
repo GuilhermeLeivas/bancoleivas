@@ -3,16 +3,16 @@ package br.com.leivas.bancoleivas.model.reg;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
-@ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity

@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "FINTRANSACAO")
 @SequenceGenerator(name = "seqFinTransacao", sequenceName = "SEQFINTRANSACAO", allocationSize = 1)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Transacao extends BaseEntity {
 
     @Id
