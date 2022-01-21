@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ITransacaoCommandFactory implements IFactory<Integer, ITransacaoCommand> {
+public class TransacaoCommandFactory implements IFactory<Integer, ITransacaoCommand> {
 
     private enum IdentificadorTransacao {
         TRANSFERENCIA(200, "TransferenciaCommand"),

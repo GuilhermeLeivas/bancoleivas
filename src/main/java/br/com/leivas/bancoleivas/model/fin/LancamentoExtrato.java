@@ -2,10 +2,7 @@ package br.com.leivas.bancoleivas.model.fin;
 
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -41,4 +38,22 @@ public class LancamentoExtrato extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private TipoLancamento tipoLancamento;
+
+    public void adicionaConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    public void adicionaTransacaoOrigemPorTipo(Transacao transacao, TipoLancamento tipoLancamento) {
+        this.transacaoOrigem = transacao;
+        this.tipoLancamento = tipoLancamento;
+    }
+
+    private void defineValorLancamento() {
+        BigDecimal valorTransacao = this.transacaoOrigem.getValor();
+        this.valor = this.tipoLancamento == TipoLancamento.ENTRADA ? valorTransacao : this.inverteSinalValor(valorTransacao);
+    }
+
+    private BigDecimal inverteSinalValor(BigDecimal valor) {
+        return new BigDecimal(-1).multiply(valor);
+    }
 }
