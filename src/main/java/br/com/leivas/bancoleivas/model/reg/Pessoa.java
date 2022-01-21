@@ -1,5 +1,7 @@
 package br.com.leivas.bancoleivas.model.reg;
 
+import br.com.leivas.bancoleivas.dto.BaseDTO;
+import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
