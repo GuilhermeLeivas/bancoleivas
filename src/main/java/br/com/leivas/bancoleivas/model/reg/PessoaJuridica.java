@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.reg;
 
+import br.com.leivas.bancoleivas.dto.reg.PessoaJuridicaDTO;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "REGPESSOAJURIDICA")
-public class PessoaJuridica extends Pessoa {
+public class PessoaJuridica extends Pessoa<PessoaJuridicaDTO, PessoaJuridica> {
 
     @Column(nullable = false, length = 20)
     private String inscEstadual;
@@ -24,4 +25,9 @@ public class PessoaJuridica extends Pessoa {
     private String inscMunicipal;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date DataFundacao;
+
+    @Override
+    public PessoaJuridica fromDTO(PessoaJuridicaDTO dto) {
+        return null;
+    }
 }

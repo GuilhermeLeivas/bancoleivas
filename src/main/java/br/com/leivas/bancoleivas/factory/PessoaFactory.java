@@ -4,7 +4,6 @@ import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.Pessoa;
-import br.com.leivas.bancoleivas.model.reg.PessoaFisica;
 
 import static br.com.leivas.bancoleivas.model.reg.CadastroNacional.TipoCadastroNacional.CPF;
 

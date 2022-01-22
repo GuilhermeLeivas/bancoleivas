@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.reg;
 
+import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,8 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "REGPESSOAFISICA")
-public class PessoaFisica extends Pessoa {
+public class PessoaFisica extends Pessoa<PessoaFisicaDTO, PessoaFisica> {
+
     public enum SexoPessoa {
         MASCULINO, FEMININO, NAOINFORMADO
     }
@@ -31,4 +33,8 @@ public class PessoaFisica extends Pessoa {
     @Column(nullable = true, length = 500)
     private String nomeConjugue;
 
+    @Override
+    public PessoaFisica fromDTO(PessoaFisicaDTO dto) {
+        return null;
+    }
 }

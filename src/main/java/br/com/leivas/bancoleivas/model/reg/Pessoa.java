@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "REGPESSOA")
 @SequenceGenerator(name = "seqRegPessoa", sequenceName = "SEQREGPESSOA", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa extends BaseEntity {
+public abstract class Pessoa<D, P> extends BaseEntity<D, P> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegPessoa")
     private Long id;

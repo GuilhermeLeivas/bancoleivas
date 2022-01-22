@@ -5,7 +5,6 @@ import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service

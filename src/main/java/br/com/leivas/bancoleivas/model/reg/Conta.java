@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.reg;
 
+import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
@@ -22,7 +23,7 @@ import java.util.UUID;
         @Index(columnList = "numero"),
 })
 @SequenceGenerator(name = "seqRegConta", sequenceName = "SEQREGCONTA", allocationSize = 1)
-public class Conta extends BaseEntity {
+public class Conta extends BaseEntity<ContaDTO, Conta> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegConta")
@@ -61,5 +62,10 @@ public class Conta extends BaseEntity {
         LancamentoExtrato lancamentoExtrato = new LancamentoExtrato();
         lancamentoExtrato.adicionaConta(this);
         lancamentoExtrato.adicionaTransacaoOrigemPorTipo(transacao, tipo);
+    }
+
+    @Override
+    public Conta fromDTO(ContaDTO dto) {
+        return null;
     }
 }

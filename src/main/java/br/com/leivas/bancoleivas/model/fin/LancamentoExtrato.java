@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.fin;
 
+import br.com.leivas.bancoleivas.dto.fin.LancamentoExtratoDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import lombok.*;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "FINLANCAMENTOEXTRATO")
 @SequenceGenerator(name = "seqFinLancamento", sequenceName = "SEQFINLANCAMENTOEXTRATO", allocationSize = 1)
-public class LancamentoExtrato extends BaseEntity {
+public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, LancamentoExtrato> {
 
     public enum TipoLancamento {
         ENTRADA, SAIDA
@@ -45,6 +46,11 @@ public class LancamentoExtrato extends BaseEntity {
     public void adicionaTransacaoOrigemPorTipo(Transacao transacao, TipoLancamento tipoLancamento) {
         this.transacaoOrigem = transacao;
         this.tipoLancamento = tipoLancamento;
+    }
+
+    @Override
+    public LancamentoExtrato fromDTO(LancamentoExtratoDTO dto) {
+        return null;
     }
 
     private void defineValorLancamento() {
