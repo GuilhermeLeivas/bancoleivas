@@ -10,7 +10,7 @@ public class StellaValidadorTest {
 
     @Test
     public void cpfValidadorTest() {
-        String cpf = "04539032070";
+        String cpf = "76626415034";
         boolean isCPFEligible = new CPFValidator().isEligible(cpf);
         assertTrue(isCPFEligible);
     }

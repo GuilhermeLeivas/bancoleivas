@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.model.reg;
 
 import br.com.leivas.bancoleivas.model.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 
 @Getter
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "REGCADASTRONACIONAL", uniqueConstraints = {
@@ -25,10 +27,10 @@ public class CadastroNacional extends BaseEntity {
     private Long id;
     @Column(nullable = false, length = 9)
     private String numero;
-    @Column(nullable = true, length = 4)
-    private String emissor;
     @Column(nullable = false, length = 2)
     private String digito;
+    @Column(nullable = false, length = 4)
+    private String emissor;
     @Enumerated(EnumType.ORDINAL)
     private TipoCadastroNacional tipo;
 }
