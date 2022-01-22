@@ -1,13 +1,14 @@
 package br.com.leivas.bancoleivas.model.reg;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "REGPESSOAFISICA")
 public class PessoaFisica extends Pessoa {
