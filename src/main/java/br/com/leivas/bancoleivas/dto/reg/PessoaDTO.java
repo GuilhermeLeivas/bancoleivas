@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @RequiredArgsConstructor
-public class PessoaDTO extends BaseDTO {
+public abstract class PessoaDTO extends BaseDTO {
 
     private CadastroNacionalDTO cadastroNacional;
 }

@@ -1,6 +1,8 @@
 package br.com.leivas.bancoleivas.model.reg;
 
+import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
+import br.com.leivas.bancoleivas.factory.CadastroNacionalFactory;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "REGPESSOAFISICA")
-public class PessoaFisica extends Pessoa<PessoaFisicaDTO, PessoaFisica> {
+public class PessoaFisica extends Pessoa {
 
     public enum SexoPessoa {
         MASCULINO, FEMININO, NAOINFORMADO
@@ -34,7 +36,15 @@ public class PessoaFisica extends Pessoa<PessoaFisicaDTO, PessoaFisica> {
     private String nomeConjugue;
 
     @Override
-    public PessoaFisica fromDTO(PessoaFisicaDTO dto) {
-        return null;
+    public Pessoa fromDTO(PessoaDTO dto) {
+        PessoaFisicaDTO pessoaFisicaDTO = (PessoaFisicaDTO) dto;
+        this.nome = pessoaFisicaDTO.getNome();
+        this.dataNascimento = pessoaFisicaDTO.getDataNascimento();
+        this.sexo = pessoaFisicaDTO.getSexo();
+        this.nomePai = pessoaFisicaDTO.getNomePai();
+        this.nomeMae = pessoaFisicaDTO.getNomeMae();
+        this.nomeConjugue = pessoaFisicaDTO.getNomeConjugue();
+        this.setCadastroNacional(new CadastroNacionalFactory().produce(dto.getCadastroNacional()));
+        return this;
     }
 }
