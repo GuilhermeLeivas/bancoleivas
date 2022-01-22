@@ -5,8 +5,6 @@ import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class ContaService {
     private final ContaRepository contaRepository;
@@ -15,10 +13,9 @@ public class ContaService {
         this.contaRepository = contaRepository;
     }
 
-    public Conta novaContaFisica(ContaDTO contaDTO) {
-        Conta conta = new Conta();
-        conta.setNumero(UUID.randomUUID());
-        //conta.setPessoa();
-        return null;
+    public Conta nova(ContaDTO contaDTO) {
+        Conta novaConta = new Conta().fromDTO(contaDTO);
+        novaConta = this.contaRepository.save(novaConta);
+        return novaConta;
     }
 }

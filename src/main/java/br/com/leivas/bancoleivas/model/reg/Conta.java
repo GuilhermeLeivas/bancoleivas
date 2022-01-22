@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.model.reg;
 
 import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
+import br.com.leivas.bancoleivas.factory.PessoaFactory;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,7 +33,7 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     private Agencia agencia;
     @Column(unique = true, nullable = false)
     private UUID numero;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PESSOAID", referencedColumnName = "ID")
     private Pessoa pessoa;
     @Column
@@ -66,6 +66,13 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
 
     @Override
     public Conta fromDTO(ContaDTO dto) {
-        return null;
+        this.pessoa = new PessoaFactory().produce(dto.getPessoa());
+        this.numero = this.geraNumeroConta();
+        //TODO:preencher a agencia;
+        return this;
+    }
+
+    private UUID geraNumeroConta() {
+        return UUID.randomUUID();
     }
 }

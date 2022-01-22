@@ -17,7 +17,7 @@ public abstract class Pessoa extends BaseEntity<PessoaDTO, Pessoa> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegPessoa")
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "CADASTRONACIONALID", referencedColumnName = "ID", unique = true, nullable = true)
     private CadastroNacional cadastroNacional;
 

@@ -10,7 +10,6 @@ public class ContaResource {
 
     @PostMapping("fisica/nova")
     public ResponseEntity novaContaFisica(@RequestBody ContaDTO contaDTO) {
-
         return ResponseEntity.ok().build();
     }
 
