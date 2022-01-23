@@ -13,7 +13,7 @@ import java.net.URI;
 Util para adicionar header location após algum recurso ser criado via web service.
  */
 @Component
-public class RecursoCriadoEventListener implements ApplicationListener<createdResourceDestinationEvent> {
+public class CreatedResourceDestinationEventListener implements ApplicationListener<createdResourceDestinationEvent> {
     @Override
     public void onApplicationEvent(createdResourceDestinationEvent recursoCriadoEvent) {
         HttpServletResponse response = recursoCriadoEvent.getResponse();
