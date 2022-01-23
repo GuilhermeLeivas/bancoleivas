@@ -1,6 +1,6 @@
 package br.com.leivas.bancoleivas.event.listener;
 
-import br.com.leivas.bancoleivas.event.RecursoCriadoEvent;
+import br.com.leivas.bancoleivas.event.createdResourceDestinationEvent;
 import com.sun.istack.NotNull;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,9 @@ import java.net.URI;
 Util para adicionar header location após algum recurso ser criado via web service.
  */
 @Component
-public class RecursoCriadoEventListener implements ApplicationListener<RecursoCriadoEvent> {
+public class RecursoCriadoEventListener implements ApplicationListener<createdResourceDestinationEvent> {
     @Override
-    public void onApplicationEvent(RecursoCriadoEvent recursoCriadoEvent) {
+    public void onApplicationEvent(createdResourceDestinationEvent recursoCriadoEvent) {
         HttpServletResponse response = recursoCriadoEvent.getResponse();
         Long id = recursoCriadoEvent.getId();
         this.adicionarHeaderLocation(response, id);

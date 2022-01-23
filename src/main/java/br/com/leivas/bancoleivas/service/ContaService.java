@@ -5,7 +5,10 @@ import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ContaService {
     private final ContaRepository contaRepository;
 
@@ -13,7 +16,7 @@ public class ContaService {
         this.contaRepository = contaRepository;
     }
 
-    public Conta nova(ContaDTO contaDTO) {
+    public Conta novaConta(ContaDTO contaDTO) {
         Conta novaConta = new Conta().fromDTO(contaDTO);
         novaConta = this.contaRepository.save(novaConta);
         return novaConta;
