@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model.fin;
 
+import br.com.leivas.bancoleivas.dto.fin.TransacaoDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "FINTRANSACAO")
 @SequenceGenerator(name = "seqFinTransacao", sequenceName = "SEQFINTRANSACAO", allocationSize = 1)
-public class Transacao extends BaseEntity {
+public class Transacao extends BaseEntity<TransacaoDTO, Transacao> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqFinTransacao")
@@ -34,4 +35,10 @@ public class Transacao extends BaseEntity {
 
     @Transient
     private ITransacaoStrategy executionStrategy;
+
+    @Override
+    public Transacao fromDTO(TransacaoDTO dto) {
+        this.valor = dto.getValor();
+        return this;
+    }
 }

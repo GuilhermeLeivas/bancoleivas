@@ -4,18 +4,16 @@ import br.com.leivas.bancoleivas.dto.reg.CadastroNacionalDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "REGCADASTRONACIONAL", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"numero", "nrFilial", "digito"})})
+        @UniqueConstraint(columnNames = {"numero", "emissor", "digito"})})
 @SequenceGenerator(name = "seqRegCadastroNacional", sequenceName = "SEQREGCADASTRONACIONAL", allocationSize = 1)
 public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNacional> {
 
