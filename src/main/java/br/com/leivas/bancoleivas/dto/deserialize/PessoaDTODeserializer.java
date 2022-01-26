@@ -49,6 +49,7 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
         CadastroNacionalDTO cadastroNacionalDTO = this.fillCadastroNacionalDTO();
         try {
             this.pessoaDTO = cadastroNacionalDTO.getTipo() == CPF ? this.fillPessoaFisicaDTO() : this.fillPessoaJuridicaDTO();
+            this.pessoaDTO.setCadastroNacional(cadastroNacionalDTO);
         } catch (ParseException ex) {
             Logger.getLogger(getClass().getSimpleName()).log(Level.SEVERE, "Falha ao deserializar PessoaDTO {0}", ex);
         }
