@@ -25,7 +25,7 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
 
     private PessoaDTO pessoaDTO;
     private JsonNode jsonNode;
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public PessoaDTODeserializer() {
         this((JavaType) null);
