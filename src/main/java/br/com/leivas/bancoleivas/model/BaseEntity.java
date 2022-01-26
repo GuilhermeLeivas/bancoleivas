@@ -5,14 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity<D, E> implements DTOConverter<D, E> {
 
     @Version
     private Integer optmisticklock;

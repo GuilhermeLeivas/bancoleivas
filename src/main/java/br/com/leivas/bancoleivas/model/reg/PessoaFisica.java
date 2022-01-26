@@ -1,16 +1,21 @@
 package br.com.leivas.bancoleivas.model.reg;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
+import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
+import br.com.leivas.bancoleivas.factory.CadastroNacionalFactory;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "REGPESSOAFISICA")
 public class PessoaFisica extends Pessoa {
+
     public enum SexoPessoa {
         MASCULINO, FEMININO, NAOINFORMADO
     }
@@ -30,4 +35,16 @@ public class PessoaFisica extends Pessoa {
     @Column(nullable = true, length = 500)
     private String nomeConjugue;
 
+    @Override
+    public Pessoa fromDTO(PessoaDTO dto) {
+        PessoaFisicaDTO pessoaFisicaDTO = (PessoaFisicaDTO) dto;
+        this.nome = pessoaFisicaDTO.getNome();
+        this.dataNascimento = pessoaFisicaDTO.getDataNascimento();
+        this.sexo = pessoaFisicaDTO.getSexo();
+        this.nomePai = pessoaFisicaDTO.getNomePai();
+        this.nomeMae = pessoaFisicaDTO.getNomeMae();
+        this.nomeConjugue = pessoaFisicaDTO.getNomeConjugue();
+        this.setCadastroNacional(new CadastroNacionalFactory().produce(dto.getCadastroNacional()));
+        return this;
+    }
 }

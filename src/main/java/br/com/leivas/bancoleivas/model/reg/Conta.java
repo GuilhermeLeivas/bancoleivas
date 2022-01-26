@@ -1,11 +1,14 @@
 package br.com.leivas.bancoleivas.model.reg;
 
+import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
+import br.com.leivas.bancoleivas.factory.PessoaFactory;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,13 +16,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "REGCONTA", indexes = {
         @Index(columnList = "numero"),
 })
 @SequenceGenerator(name = "seqRegConta", sequenceName = "SEQREGCONTA", allocationSize = 1)
-public class Conta extends BaseEntity {
+public class Conta extends BaseEntity<ContaDTO, Conta> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegConta")
@@ -29,7 +33,7 @@ public class Conta extends BaseEntity {
     private Agencia agencia;
     @Column(unique = true, nullable = false)
     private UUID numero;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PESSOAID", referencedColumnName = "ID")
     private Pessoa pessoa;
     @Column
@@ -58,5 +62,17 @@ public class Conta extends BaseEntity {
         LancamentoExtrato lancamentoExtrato = new LancamentoExtrato();
         lancamentoExtrato.adicionaConta(this);
         lancamentoExtrato.adicionaTransacaoOrigemPorTipo(transacao, tipo);
+    }
+
+    @Override
+    public Conta fromDTO(ContaDTO dto) {
+        this.pessoa = new PessoaFactory().produce(dto.getPessoa());
+        this.numero = this.geraNumeroConta();
+        //TODO:preencher a agencia;
+        return this;
+    }
+
+    private UUID geraNumeroConta() {
+        return UUID.randomUUID();
     }
 }

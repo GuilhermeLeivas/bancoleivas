@@ -1,13 +1,18 @@
 package br.com.leivas.bancoleivas.dto.reg;
 
 import br.com.leivas.bancoleivas.dto.BaseDTO;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import br.com.leivas.bancoleivas.dto.deserialize.PessoaDTODeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.*;
 
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
-@RequiredArgsConstructor
-public class PessoaDTO extends BaseDTO {
+@JsonDeserialize(using = PessoaDTODeserializer.class)
+public abstract class PessoaDTO extends BaseDTO {
+
+    private CadastroNacionalDTO cadastroNacional;
+
 }
