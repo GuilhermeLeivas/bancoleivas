@@ -8,12 +8,10 @@ import br.com.leivas.bancoleivas.model.fin.Transacao;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
@@ -32,7 +30,7 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     @JoinColumn(name = "AGENCIAID", referencedColumnName = "ID")
     private Agencia agencia;
     @Column(unique = true, nullable = false)
-    private UUID numero;
+    private Long numero;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PESSOAID", referencedColumnName = "ID")
     private Pessoa pessoa;
@@ -67,12 +65,11 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     @Override
     public Conta fromDTO(ContaDTO dto) {
         this.pessoa = new PessoaFactory().produce(dto.getPessoa());
-        this.numero = this.geraNumeroConta();
         //TODO:preencher a agencia;
         return this;
     }
 
-    private UUID geraNumeroConta() {
-        return UUID.randomUUID();
+    public void adicionaNumeroConta(NumeroConta numeroConta) {
+        this.numero = numeroConta.getNumero();
     }
 }
