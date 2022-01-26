@@ -4,11 +4,10 @@ import br.com.leivas.bancoleivas.dto.reg.CadastroNacionalDTO;
 import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
+import br.com.leivas.bancoleivas.model.reg.PessoaFisica;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,15 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.Filter;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -54,7 +49,7 @@ class ContaResourceTest {
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
-    private byte[] getDummyData() throws JsonProcessingException {
+    private String getDummyData() throws JsonProcessingException {
         LocalDate dataNascimento = LocalDate.of(1998, 10, 2);
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO();
         pessoaFisicaDTO.setNome("Guilherme Leivas");
@@ -62,6 +57,7 @@ class ContaResourceTest {
         pessoaFisicaDTO.setNomePai("Carlos Alberto");
         pessoaFisicaDTO.setNomeMae("Susi Leivas");
         pessoaFisicaDTO.setNomeConjugue(null);
+        pessoaFisicaDTO.setSexo(PessoaFisica.SexoPessoa.MASCULINO);
         pessoaFisicaDTO.setCadastroNacional(
                 CadastroNacionalDTO
                         .builder()
@@ -70,6 +66,6 @@ class ContaResourceTest {
                         .tipo(CadastroNacional.TipoCadastroNacional.CPF)
                         .build()
         );
-        return this.objectMapper.writeValueAsBytes(new ContaDTO(pessoaFisicaDTO));
+        return this.objectMapper.writeValueAsString(new ContaDTO(pessoaFisicaDTO));
     }
 }

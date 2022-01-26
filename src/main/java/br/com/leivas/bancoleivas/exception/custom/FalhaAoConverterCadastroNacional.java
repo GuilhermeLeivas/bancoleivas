@@ -6,4 +6,6 @@ public class FalhaAoConverterCadastroNacional extends RuntimeException {
     public String getMessage() {
         return "Falha ao converter documento!";
     }
+
+
 }
