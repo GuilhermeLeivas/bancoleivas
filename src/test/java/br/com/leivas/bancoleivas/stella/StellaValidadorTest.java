@@ -2,11 +2,12 @@ package br.com.leivas.bancoleivas.stella;
 
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
+import br.com.leivas.bancoleivas.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class StellaValidadorTest {
+public class StellaValidadorTest extends BaseTest {
 
     @Test
     public void cpfValidadorTest() {

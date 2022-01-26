@@ -1,10 +1,11 @@
 package br.com.leivas.bancoleivas.util.separator;
 
+import br.com.leivas.bancoleivas.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CadastroNacionalDigitoSeparatorTest {
+class CadastroNacionalDigitoSeparatorTest extends BaseTest {
 
     @Test
     public void separateCPF() {

@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.resource;
 
+import br.com.leivas.bancoleivas.BaseTest;
 import br.com.leivas.bancoleivas.dto.reg.CadastroNacionalDTO;
 import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
@@ -27,10 +28,9 @@ import java.time.ZoneId;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
-class ContaResourceTest {
+class ContaResourceTest extends BaseTest {
 
     @Autowired
     private MockMvc mockMvc;
