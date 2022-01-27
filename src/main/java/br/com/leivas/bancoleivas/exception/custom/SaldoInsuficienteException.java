@@ -1,6 +1,6 @@
 package br.com.leivas.bancoleivas.exception.custom;
 
-public class SaldoInsuficienteException extends BaseCustomException {
+public class SaldoInsuficienteException extends BancoLeivasException {
 
 
     @Override

@@ -48,8 +48,9 @@ public final class TransacaoStrategyFactory implements IFactory<Integer, ITransa
             Constructor<?> commandConstructor = classRef.getConstructor();
             return (ITransacaoStrategy) commandConstructor.newInstance();
         } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, "Falha ao produzir comando para transação");
-            throw new FalhaNaGeracaoDeTransacao(ex);
+            String message = "Falha ao localizar funcionalidade, tente novamente mais tarde!";
+            Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, message);
+            throw new FalhaNaGeracaoDeTransacao(ex, message);
         }
     }
 }

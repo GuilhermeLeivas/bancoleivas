@@ -1,6 +1,6 @@
 package br.com.leivas.bancoleivas.exception.custom;
 
-public class FalhaAoConverterCadastroNacional extends BaseCustomException {
+public class FalhaAoConverterCadastroNacional extends BancoLeivasException {
 
     public FalhaAoConverterCadastroNacional(Throwable initCause) {
         super(initCause);

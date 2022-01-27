@@ -1,13 +1,9 @@
 package br.com.leivas.bancoleivas.exception.custom;
 
-public class FalhaNaGeracaoDeTransacao extends BaseCustomException {
+public class FalhaNaGeracaoDeTransacao extends BancoLeivasException {
 
-    public FalhaNaGeracaoDeTransacao(Throwable initCause) {
-        super(initCause);
+    public FalhaNaGeracaoDeTransacao(Throwable initCause, String message) {
+        super(initCause, message);
     }
 
-    @Override
-    public String getMessage() {
-        return "Falha ao tentar criar comando para nova transação.";
-    }
 }
