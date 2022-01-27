@@ -22,7 +22,7 @@ public class CadastroNacionalParser implements Parser<CadastroNacionalDTO, Cadas
                         .build();
             }
         } catch (Exception ex) {
-            throw new FalhaAoConverterCadastroNacional();
+            throw new FalhaAoConverterCadastroNacional(ex);
         }
         return null;
     }

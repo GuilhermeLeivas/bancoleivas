@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.exception.custom;
 
-public class SaldoInsuficienteException extends RuntimeException {
+public class SaldoInsuficienteException extends BaseCustomException {
+
 
     @Override
     public String getMessage() {

@@ -49,7 +49,7 @@ public final class TransacaoStrategyFactory implements IFactory<Integer, ITransa
             return (ITransacaoStrategy) commandConstructor.newInstance();
         } catch (Exception ex) {
             Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, "Falha ao produzir comando para transação");
-            throw new FalhaNaGeracaoDeTransacao();
+            throw new FalhaNaGeracaoDeTransacao(ex);
         }
     }
 }
