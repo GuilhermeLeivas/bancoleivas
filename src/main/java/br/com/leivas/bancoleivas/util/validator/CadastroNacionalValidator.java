@@ -13,7 +13,7 @@ public class CadastroNacionalValidator implements Validator<String> {
             try {
                 new CNPJValidator().assertValid(input);
             } catch (Exception e) {
-                throw new CadastroNacionalInvalido();
+                throw new CadastroNacionalInvalido(e);
             }
         }
         return true;
