@@ -29,4 +29,10 @@ public class ContaResource {
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
     }
+
+    @GetMapping("/info/{numeroConta}")
+    public ResponseEntity<?> contaInfo(@PathVariable Long numeroConta) {
+        Conta conta = this.contaService.contaInfo(numeroConta);
+        return ResponseEntity.status(HttpStatus.OK).body(conta);
+    }
 }

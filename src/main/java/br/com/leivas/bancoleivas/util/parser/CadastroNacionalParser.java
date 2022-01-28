@@ -15,7 +15,7 @@ public class CadastroNacionalParser implements Parser<CadastroNacionalDTO, Cadas
                 CadastroNacional.TipoCadastroNacional tipoCadastroNacional = cadastroNacionalDTO.getTipo();
                 CadastroNacionalDigitoSeparator separator = new CadastroNacionalDigitoSeparator(cadastroNacionalDTO.getNumero());
                 return CadastroNacional.builder()
-                        .numero(separator.getNumero())
+                        .numero(separator.getNumeroBase())
                         .digito(separator.getDigito())
                         .emissor(cadastroNacionalDTO.getEmissor())
                         .tipo(tipoCadastroNacional)
