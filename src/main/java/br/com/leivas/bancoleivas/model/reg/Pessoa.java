@@ -24,4 +24,15 @@ public abstract class Pessoa extends BaseEntity<PessoaDTO, Pessoa> {
     public void setCadastroNacional(CadastroNacional cadastroNacional) {
         this.cadastroNacional = cadastroNacional;
     }
+
+    public String nomeReferencia() {
+        String nomeReferencia = "";
+        if (this instanceof PessoaFisica pf) {
+            nomeReferencia = pf.getNome();
+        } else {
+            PessoaJuridica pj = (PessoaJuridica) this;
+            nomeReferencia = pj.getNomeFantasia();
+        }
+        return nomeReferencia;
+    }
 }

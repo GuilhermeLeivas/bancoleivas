@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CadastroNacionalDigitoSeparator implements Separator<String, String[]> {
 
-    private String numeroBase;
-    private String digitos;
+    private String numero;
+    private String digito;
 
     public CadastroNacionalDigitoSeparator(String numero) {
         this.separate(numero);
@@ -22,8 +22,8 @@ public class CadastroNacionalDigitoSeparator implements Separator<String, String
         String base = numero.substring(0, (finalAteDigitos));
         result[0] = base;
         result[1] = digitosVerificadores;
-        this.numeroBase = base;
-        this.digitos = digitosVerificadores;
+        this.numero = numero;
+        this.digito = digitosVerificadores;
         return result;
     }
 }

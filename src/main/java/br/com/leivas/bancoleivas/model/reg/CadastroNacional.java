@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "REGCADASTRONACIONAL", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"numero", "emissor", "digito"})})
 @SequenceGenerator(name = "seqRegCadastroNacional", sequenceName = "SEQREGCADASTRONACIONAL", allocationSize = 1)
-public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNacional> {
+public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNacional> implements ICadNacional {
 
     public enum TipoCadastroNacional {
         CPF, CNPJ
@@ -36,5 +36,15 @@ public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNa
     @Override
     public CadastroNacional fromDTO(CadastroNacionalDTO dto) {
         return null;
+    }
+
+    @Override
+    public String numero() {
+        return this.numero;
+    }
+
+    @Override
+    public String digito() {
+        return this.digito;
     }
 }

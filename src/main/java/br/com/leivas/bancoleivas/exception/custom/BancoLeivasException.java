@@ -13,6 +13,10 @@ public abstract class BancoLeivasException extends RuntimeException {
         this.message = message;
     }
 
+    public BancoLeivasException(String message) {
+        this.message = message;
+    }
+
     public BancoLeivasException() {
     }
 
