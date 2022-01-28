@@ -40,9 +40,7 @@ public class ContaResourceInfoTest extends BaseTest {
 
     @BeforeEach
     public void setup() {
-        this.contaService = null;
-        this.contaResource = null;
-        this.mockMvc = null;
+        this.tearDown();
         MockitoAnnotations.openMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(contaResource).setControllerAdvice(new BancoLeivasExceptionHandler()).build();
     }
@@ -70,5 +68,11 @@ public class ContaResourceInfoTest extends BaseTest {
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = this.mockMvc.perform(requestBuilder).andReturn();
         return result.getResponse();
+    }
+
+    private void tearDown() {
+        this.contaService = null;
+        this.contaResource = null;
+        this.mockMvc = null;
     }
 }
