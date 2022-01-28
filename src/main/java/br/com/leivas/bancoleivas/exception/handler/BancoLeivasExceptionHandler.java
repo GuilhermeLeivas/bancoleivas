@@ -27,7 +27,7 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler({ClienteJaCadastradoNoSistema.class})
     public ResponseEntity<Object> handleClienteJaCadastradoNoSistema(ClienteJaCadastradoNoSistema ex, WebRequest webRequest) {
-        Erro erro = new Erro("Cliente já possuí cadastro ativo no sistema!", ex.getCause().toString());
+        Erro erro = new Erro(ex.getMessage(), ex.getCause().toString());
         return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.CONFLICT, webRequest);
     }
 
