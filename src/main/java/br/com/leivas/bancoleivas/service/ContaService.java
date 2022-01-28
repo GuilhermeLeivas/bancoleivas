@@ -3,6 +3,7 @@ package br.com.leivas.bancoleivas.service;
 import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.ClienteJaCadastradoNoSistema;
+import br.com.leivas.bancoleivas.exception.custom.ContaInexistenceException;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.model.reg.NumeroConta;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
@@ -10,6 +11,7 @@ import br.com.leivas.bancoleivas.repository.reg.NumeroContaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -33,6 +35,14 @@ public class ContaService {
         novaConta.adicionaNumeroConta(this.geraNumeroConta());
         novaConta = this.contaRepository.save(novaConta);
         return novaConta;
+    }
+
+    public Conta contaInfo(Long numeroConta) {
+        Optional<Conta> conta = this.contaRepository.findByNumero(numeroConta);
+        if (conta.isEmpty()) {
+            throw new ContaInexistenceException(String.format("Conta: %s não se encontra no sistema!", numeroConta));
+        }
+        return conta.get();
     }
 
     private NumeroConta geraNumeroConta() {

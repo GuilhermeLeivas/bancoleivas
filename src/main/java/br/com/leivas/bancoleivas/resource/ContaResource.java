@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/conta")
@@ -28,5 +29,11 @@ public class ContaResource {
         Conta novaConta = contaService.novaConta(contaDTO);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
+    }
+
+    @GetMapping("/info/{numeroConta}")
+    public ResponseEntity<?> contaInfo(@PathVariable Long numeroConta) {
+        Conta conta = this.contaService.contaInfo(numeroConta);
+        return ResponseEntity.status(HttpStatus.OK).body(conta);
     }
 }
