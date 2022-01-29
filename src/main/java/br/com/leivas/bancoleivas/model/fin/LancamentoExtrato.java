@@ -3,6 +3,7 @@ package br.com.leivas.bancoleivas.model.fin;
 import br.com.leivas.bancoleivas.dto.fin.LancamentoExtratoDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
 
     @ManyToOne
     @JoinColumn(name = "CONTAORIGEM", referencedColumnName = "ID")
+    @JsonIgnore
     private Conta conta;
 
     @ManyToOne
