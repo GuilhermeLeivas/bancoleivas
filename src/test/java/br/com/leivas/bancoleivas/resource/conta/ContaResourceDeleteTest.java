@@ -1,8 +1,8 @@
 package br.com.leivas.bancoleivas.resource.conta;
 
-import br.com.leivas.bancoleivas.BaseTest;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
+import br.com.leivas.bancoleivas.resource.BaseMockTest;
 import br.com.leivas.bancoleivas.resource.ContaResource;
 import br.com.leivas.bancoleivas.service.ContaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.doThrow;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ContaResourceDeleteTest extends BaseTest {
+public class ContaResourceDeleteTest extends BaseMockTest {
 
     @Mock
     private ContaService contaService;
@@ -36,10 +36,18 @@ public class ContaResourceDeleteTest extends BaseTest {
     private MockMvc mockMvc;
 
     @BeforeEach
+    @Override
     public void setup() {
         this.tearDown();
         MockitoAnnotations.openMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(contaResource).setControllerAdvice(new BancoLeivasExceptionHandler()).build();
+    }
+
+    @Override
+    public void tearDown() {
+        this.contaService = null;
+        this.contaResource = null;
+        this.mockMvc = null;
     }
 
     @Test
@@ -64,11 +72,5 @@ public class ContaResourceDeleteTest extends BaseTest {
                 .delete("/conta/{numeroConta}", numeroConta);
         MvcResult result = this.mockMvc.perform(requestBuilder).andReturn();
         return result.getResponse();
-    }
-
-    private void tearDown() {
-        this.contaService = null;
-        this.contaResource = null;
-        this.mockMvc = null;
     }
 }

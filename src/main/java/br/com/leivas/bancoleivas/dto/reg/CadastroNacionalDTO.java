@@ -6,6 +6,8 @@ import br.com.leivas.bancoleivas.model.reg.ICadNacional;
 import br.com.leivas.bancoleivas.util.separator.CadastroNacionalDigitoSeparator;
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @Builder
@@ -27,5 +29,18 @@ public class CadastroNacionalDTO extends BaseDTO implements ICadNacional {
         CadastroNacionalDigitoSeparator separator = new CadastroNacionalDigitoSeparator();
         separator.separate(this.numero);
         return separator.getDigito();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CadastroNacionalDTO that = (CadastroNacionalDTO) o;
+        return numero.equals(that.numero) && emissor.equals(that.emissor) && tipo == that.tipo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numero, emissor, tipo);
     }
 }

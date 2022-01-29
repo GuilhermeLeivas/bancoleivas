@@ -7,6 +7,8 @@ import br.com.leivas.bancoleivas.model.reg.PessoaJuridica;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,4 +31,16 @@ public abstract class PessoaDTO extends BaseDTO {
         return nomeReferencia;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PessoaDTO pessoaDTO = (PessoaDTO) o;
+        return cadastroNacional.equals(pessoaDTO.cadastroNacional);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cadastroNacional);
+    }
 }

@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ContaResourceCreateTest extends BaseTest {
+public class ContaResourceCreateTest extends BaseTest {
 
     @Autowired
     private MockMvc mockMvc;

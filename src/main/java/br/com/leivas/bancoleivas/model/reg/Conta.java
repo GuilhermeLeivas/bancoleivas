@@ -40,6 +40,10 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     @JoinColumn(name = "CONTAID", referencedColumnName = "ID")
     private List<LancamentoExtrato> lancamentosExtrato;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public boolean possuiSaldoParaTransacao(Transacao transacao) {
         return this.saldo.compareTo(transacao.getValor()) > 0;
     }
