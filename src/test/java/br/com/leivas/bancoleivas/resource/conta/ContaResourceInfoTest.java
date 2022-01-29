@@ -29,7 +29,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@SpringBootTest
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ContaResourceInfoTest extends BaseMockTest {
 

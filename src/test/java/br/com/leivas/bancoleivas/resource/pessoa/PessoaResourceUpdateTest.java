@@ -1,10 +1,12 @@
-package br.com.leivas.bancoleivas.resource;
+package br.com.leivas.bancoleivas.resource.pessoa;
 
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.PessoaNaoPossuiCadastroNoSistema;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.reg.Pessoa;
 import br.com.leivas.bancoleivas.model.reg.PessoaFisica;
+import br.com.leivas.bancoleivas.resource.BaseMockTest;
+import br.com.leivas.bancoleivas.resource.PessoaResource;
 import br.com.leivas.bancoleivas.resource.dummy.PessoaDummyData;
 import br.com.leivas.bancoleivas.service.PessoaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -30,7 +31,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 public class PessoaResourceUpdateTest extends BaseMockTest {
 
     @Mock
