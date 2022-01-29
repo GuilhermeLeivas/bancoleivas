@@ -29,6 +29,7 @@ public class TransacaoService {
         Transacao novaTransacao = new Transacao().fromDTO(transacaoDTO);
         novaTransacao.setContaOrigem(contaOrigem);
         novaTransacao.setContaDestino(contaDestino);
+        novaTransacao.adicionaNumeroProtocolo(this.geraNumeroProtocolo());
         novaTransacao = this.transacaoRepository.save(novaTransacao);
         novaTransacao.executaTransacao();
         this.contaService.atualizaMultiplasContas(contaOrigem, contaDestino);
