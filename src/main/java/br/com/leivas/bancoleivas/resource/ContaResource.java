@@ -35,4 +35,10 @@ public class ContaResource {
         Conta conta = this.contaService.contaInfo(numeroConta);
         return ResponseEntity.status(HttpStatus.OK).body(conta);
     }
+
+    @DeleteMapping("/{numeroConta}")
+    public ResponseEntity<?> deletaConta(@PathVariable Long numeroConta) {
+        this.contaService.deletaConta(numeroConta);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
