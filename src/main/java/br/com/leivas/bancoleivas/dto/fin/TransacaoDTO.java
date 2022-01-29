@@ -14,9 +14,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TransacaoDTO extends BaseDTO {
     private Integer codigoTransacao;
-    private UUID numeroContaOrigem;
-    private UUID numeroContaDestino;
+    private Long numeroContaOrigem;
+    private Long numeroContaDestino;
+    private Long numeroProtocolo;
     private BigDecimal valor;
-    private UUID numeroProtocolo;
 
 }

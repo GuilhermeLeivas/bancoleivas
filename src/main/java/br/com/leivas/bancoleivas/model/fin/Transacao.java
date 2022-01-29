@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.model.fin;
 
 import br.com.leivas.bancoleivas.dto.fin.TransacaoDTO;
+import br.com.leivas.bancoleivas.factory.TransacaoStrategyFactory;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
@@ -36,9 +37,26 @@ public class Transacao extends BaseEntity<TransacaoDTO, Transacao> {
     @Transient
     private ITransacaoStrategy executionStrategy;
 
+    public void setContaOrigem(Conta contaOrigem) {
+        this.contaOrigem = contaOrigem;
+    }
+
+    public void setContaDestino(Conta contaDestino) {
+        this.contaDestino = contaDestino;
+    }
+
     @Override
     public Transacao fromDTO(TransacaoDTO dto) {
         this.valor = dto.getValor();
+        this.executionStrategy = new TransacaoStrategyFactory().produce(dto.getCodigoTransacao());
         return this;
+    }
+
+    public void executaTransacao() {
+        this.executionStrategy.executeStrategy(this);
+    }
+
+    public void adicionaNumeroProtocolo(NumeroProtocolo numeroProtocolo) {
+        this.numeroProtocolo = numeroProtocolo.getNumero();
     }
 }
