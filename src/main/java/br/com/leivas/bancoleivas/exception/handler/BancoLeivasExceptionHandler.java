@@ -32,6 +32,12 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
         return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.CONFLICT, webRequest);
     }
 
+    @ExceptionHandler({PessoaNaoPossuiCadastroNoSistema.class})
+    public ResponseEntity<Object> handlePessoaNaoPossuiCadastroNoSistema(PessoaNaoPossuiCadastroNoSistema ex, WebRequest webRequest) {
+        Erro erro = new Erro(ex.getMessage(), this.getCause(ex));
+        return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_FOUND, webRequest);
+    }
+
     // *********************** HANDLERS DE EXCEPTIONS LIGADAS A CONTA ***********************
     @ExceptionHandler({ContaInexistenteException.class})
     public ResponseEntity<Object> handleContaInexistenceException(ContaInexistenteException ex, WebRequest webRequest) {

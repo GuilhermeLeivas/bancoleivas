@@ -35,4 +35,15 @@ public abstract class Pessoa extends BaseEntity<PessoaDTO, Pessoa> {
         }
         return nomeReferencia;
     }
+
+    @Override
+    public Pessoa fromDTO(PessoaDTO dto) {
+        if (this instanceof PessoaFisica pf) {
+            pf.fromDTO(dto);
+        } else {
+            PessoaJuridica pj = (PessoaJuridica) this;
+            pj.fromDTO(dto);
+        }
+        return this;
+    }
 }

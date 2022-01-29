@@ -10,6 +10,8 @@ import java.util.Optional;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
-    @Query("SELECT p FROM Pessoa p INNER JOIN p.cadastroNacional cadNacional WHERE cadNacional.numero = ?1")
+    @Query("SELECT p FROM Pessoa p " +
+            "INNER JOIN p.cadastroNacional cadNacional " +
+            "WHERE CONCAT(cadNacional.numero, cadNacional.digito) = ?1")
     Optional<Pessoa> findByCadastroNacional(String numero);
 }
