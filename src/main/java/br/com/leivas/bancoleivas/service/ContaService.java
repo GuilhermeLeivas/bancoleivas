@@ -39,15 +39,25 @@ public class ContaService {
 
     public Conta contaInfo(Long numeroConta) {
         Optional<Conta> conta = this.contaRepository.findByNumero(numeroConta);
-        if (conta.isEmpty()) {
-            throw new ContaInexistenteException(String.format("Conta: %s não se encontra no sistema!", numeroConta));
-        }
+        this.throwsIfContaNotExists(conta, numeroConta);
         return conta.get();
+    }
+
+    public void deletaConta(Long numeroConta) {
+        Optional<Conta> conta = this.contaRepository.findByNumero(numeroConta);
+        this.throwsIfContaNotExists(conta, numeroConta);
+        this.contaRepository.delete(conta.get());
     }
 
     private NumeroConta geraNumeroConta() {
         NumeroConta numeroConta = new NumeroConta();
         numeroConta = this.numeroContaRepository.save(numeroConta);
         return numeroConta;
+    }
+
+    private void throwsIfContaNotExists(Optional<Conta> conta, Long numeroContaPassado) {
+        if (conta.isEmpty()) {
+            throw new ContaInexistenteException(String.format("Conta: %s não se encontra no sistema!", numeroContaPassado));
+        }
     }
 }
