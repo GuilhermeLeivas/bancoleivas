@@ -48,6 +48,7 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
     public void adicionaTransacaoOrigemPorTipo(Transacao transacao, TipoLancamento tipoLancamento) {
         this.transacaoOrigem = transacao;
         this.tipoLancamento = tipoLancamento;
+        this.valor = this.defineValorLancamento();
     }
 
     @Override
@@ -55,9 +56,10 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
         return null;
     }
 
-    private void defineValorLancamento() {
+    private BigDecimal defineValorLancamento() {
         BigDecimal valorTransacao = this.transacaoOrigem.getValor();
-        this.valor = this.tipoLancamento == TipoLancamento.ENTRADA ? valorTransacao : this.inverteSinalValor(valorTransacao);
+        valorTransacao = this.tipoLancamento == TipoLancamento.ENTRADA ? valorTransacao : this.inverteSinalValor(valorTransacao);
+        return valorTransacao;
     }
 
     private BigDecimal inverteSinalValor(BigDecimal valor) {

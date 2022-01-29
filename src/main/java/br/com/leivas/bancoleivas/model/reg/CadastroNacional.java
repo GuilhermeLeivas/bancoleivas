@@ -22,10 +22,12 @@ public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNa
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqGerCadastroNacional")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegCadastroNacional")
     private Long id;
     @Column(nullable = false, length = 9)
     private String numero;
+    @Column(nullable = true, length = 4)
+    private String nrFilial;
     @Column(nullable = false, length = 2)
     private String digito;
     @Column(nullable = false, length = 4)

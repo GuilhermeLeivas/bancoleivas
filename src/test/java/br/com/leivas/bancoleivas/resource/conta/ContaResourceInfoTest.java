@@ -1,20 +1,17 @@
 package br.com.leivas.bancoleivas.resource.conta;
 
-import br.com.leivas.bancoleivas.BaseTest;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.resource.BaseMockTest;
 import br.com.leivas.bancoleivas.resource.ContaResource;
 import br.com.leivas.bancoleivas.resource.dummy.ContaDummyData;
 import br.com.leivas.bancoleivas.service.ContaService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -57,7 +54,7 @@ public class ContaResourceInfoTest extends BaseMockTest {
     @Test
     public void contaExistenteInfo() throws Exception {
         Long fakeNumeroConta = 1L;
-        when(this.contaService.contaInfo(eq(fakeNumeroConta))).thenReturn(ContaDummyData.getEntity(fakeNumeroConta));
+        when(this.contaService.contaInfo(eq(fakeNumeroConta))).thenReturn(ContaDummyData.getEntityA(fakeNumeroConta));
         MockHttpServletResponse response = this.contaInfo(fakeNumeroConta);
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }

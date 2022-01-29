@@ -10,7 +10,7 @@ public class TransferenciaStrategy implements ITransacaoStrategy {
         Conta contaOrigem = transacao.getContaOrigem();
         Conta contaDestino = transacao.getContaDestino();
         if (!contaOrigem.possuiSaldoParaTransacao(transacao)) {
-            throw new SaldoInsuficienteException();
+            throw new SaldoInsuficienteException(String.format("Conta %s Não possui Saldo para efetivar operação", contaOrigem.getNumero()));
         }
         contaOrigem.removeFundosTransacao(transacao);
         contaDestino.adicionaFundosTransacao(transacao);

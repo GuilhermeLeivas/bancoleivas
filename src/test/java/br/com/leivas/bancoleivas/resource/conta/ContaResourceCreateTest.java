@@ -39,6 +39,6 @@ public class ContaResourceCreateTest extends BaseTest {
     }
 
     private String getDummyData() throws JsonProcessingException {
-        return this.objectMapper.writeValueAsString(ContaDummyData.getDTO());
+        return this.objectMapper.writeValueAsString(ContaDummyData.getDTOA());
     }
 }
