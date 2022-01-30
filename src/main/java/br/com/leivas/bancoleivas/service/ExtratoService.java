@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.service;
 
+import br.com.leivas.bancoleivas.dto.fin.ExtratoDTO;
 import br.com.leivas.bancoleivas.model.fin.Extrato;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.repository.fin.LancamentoExtratoRepository;
@@ -16,8 +17,9 @@ public class ExtratoService {
         this.lancamentoExtratoRepository = lancamentoExtratoRepository;
     }
 
-    public Extrato lancamentosPorConta(Extrato extrato, Pageable pageable) {
-        final Page<LancamentoExtrato> lancamentos = this.lancamentoExtratoRepository.lancamentosPorConta(extrato, pageable);
+    public Extrato lancamentosPorConta(ExtratoDTO pedidoExtrato, Pageable pageable) {
+        final Page<LancamentoExtrato> lancamentos = this.lancamentoExtratoRepository.lancamentosPorConta(pedidoExtrato, pageable);
+        Extrato extrato = new Extrato().fromDTO(pedidoExtrato);
         extrato.setLancamentos(lancamentos);
         return extrato;
     }

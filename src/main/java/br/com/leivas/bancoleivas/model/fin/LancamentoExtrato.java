@@ -32,6 +32,7 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
 
     @ManyToOne
     @JoinColumn(name = "TRANSACAOORIGEMID", referencedColumnName = "ID")
+    @JsonIgnore
     private Transacao transacaoOrigem;
 
     @Column

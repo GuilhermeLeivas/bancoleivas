@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.resource;
 
 import br.com.leivas.bancoleivas.dto.fin.TransacaoDTO;
+import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
 import br.com.leivas.bancoleivas.service.TransacaoService;
 import io.swagger.annotations.ApiOperation;
@@ -24,12 +25,12 @@ public class TransacaoResource {
         this.transacaoService = transacaoService;
     }
 
-    @ApiOperation(value = "EndPoint utilizado para efetivar uma nova transação entre contas.")
+    @ApiOperation(value = "Endpoint utilizado para efetivar uma nova transação entre contas.")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Nova transação retornada"),
-            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-            @ApiResponse(code = 404, message = "Conta de origem ou Conta de destino não encontrada no sistema"),
-            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+            @ApiResponse(code = 201, message = "Nova transação retornada", response = Transacao.class),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 404, message = "Conta de origem ou Conta de destino não encontrada no sistema", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping
     public ResponseEntity<?> novaTransacao(@RequestBody TransacaoDTO transacaoDTO) {

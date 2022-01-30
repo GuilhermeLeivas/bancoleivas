@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @ControllerAdvice
 public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -63,8 +66,16 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     // Facilitador para retornar mensagens de erro no corpo da resposta http.
-    private record Erro(String mensagemUsuario,
-                        String mensagemDesenvolvedor) {
+    public static class Erro {
+        private final String mensagemUsuario;
+        private final String mensagemDesenvolvedor;
+        private final String timestamp;
+
+        public Erro(String mensagemUsuario, String mensagemDesenvolvedor) {
+            this.mensagemUsuario = mensagemUsuario;
+            this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+            this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        }
 
         public String getMensagemUsuario() {
             return mensagemUsuario;
@@ -72,6 +83,10 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
 
         public String getMensagemDesenvolvedor() {
             return mensagemDesenvolvedor;
+        }
+
+        public String getTimestamp() {
+            return timestamp;
         }
     }
 }

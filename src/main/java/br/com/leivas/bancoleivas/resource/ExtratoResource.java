@@ -1,5 +1,7 @@
 package br.com.leivas.bancoleivas.resource;
 
+import br.com.leivas.bancoleivas.dto.fin.ExtratoDTO;
+import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.fin.Extrato;
 import br.com.leivas.bancoleivas.service.ExtratoService;
 import io.swagger.annotations.ApiOperation;
@@ -20,16 +22,16 @@ public class ExtratoResource {
         this.extratoService = extratoService;
     }
 
-    @ApiOperation(value = "EndPoint utilizado para gerar extrato temporal de uma conta, baseando-se nos dados informados.")
+    @ApiOperation(value = "Endpoint utilizado para gerar extrato temporal de uma conta, baseando-se nos dados informados.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Extrato retornado com lançamentos de @param dtinicial até @param dtfinal passados no json"),
-            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-            @ApiResponse(code = 404, message = "Conta não encontrada no sistema"),
-            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+            @ApiResponse(code = 200, message = "Extrato retornado com lançamentos de @param dtinicial até @param dtfinal passados no json", response = Extrato.class),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 404, message = "Conta não encontrada no sistema", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @GetMapping
-    public ResponseEntity<?> extratoPorConta(@RequestBody Extrato pedidoExtrato, Pageable pageable) {
-        pedidoExtrato = this.extratoService.lancamentosPorConta(pedidoExtrato, pageable);
-        return ResponseEntity.status(HttpStatus.OK).body(pedidoExtrato);
+    public ResponseEntity<?> extratoPorConta(@RequestBody ExtratoDTO pedidoExtrato, Pageable pageable) {
+        Extrato extrato = this.extratoService.lancamentosPorConta(pedidoExtrato, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(extrato);
     }
 }
