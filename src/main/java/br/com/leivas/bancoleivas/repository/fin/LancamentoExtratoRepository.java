@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.repository.fin;
 
+import br.com.leivas.bancoleivas.dto.fin.ExtratoDTO;
 import br.com.leivas.bancoleivas.model.fin.Extrato;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import org.springframework.data.domain.Page;
@@ -17,5 +18,5 @@ public interface LancamentoExtratoRepository extends JpaRepository<LancamentoExt
             "WHERE conta.numero = :#{#pedidoExtrato.numeroConta} " +
             "AND (lancamento.dtCreate BETWEEN :#{#pedidoExtrato.dtInicial} AND :#{#pedidoExtrato.dtFinal}) " +
             "ORDER BY lancamento.dtCreate DESC")
-    Page<LancamentoExtrato> lancamentosPorConta(@Param("pedidoExtrato") Extrato pedidoExtrato, Pageable pageable);
+    Page<LancamentoExtrato> lancamentosPorConta(@Param("pedidoExtrato") ExtratoDTO pedidoExtrato, Pageable pageable);
 }

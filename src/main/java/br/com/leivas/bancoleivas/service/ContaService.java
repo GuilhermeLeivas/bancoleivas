@@ -4,9 +4,11 @@ import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.ClienteJaCadastradoNoSistema;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
+import br.com.leivas.bancoleivas.factory.PessoaFactory;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.model.reg.NumeroConta;
+import br.com.leivas.bancoleivas.model.reg.Pessoa;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import br.com.leivas.bancoleivas.repository.reg.NumeroContaRepository;
 import br.com.leivas.bancoleivas.util.CadNacional;
@@ -29,13 +31,12 @@ public class ContaService {
         this.numeroContaRepository = numeroContaRepository;
     }
 
-    public Conta novaConta(ContaDTO contaDTO) {
-        PessoaDTO pessoaDTO = contaDTO.getPessoa();
-        CadastroNacional cadastroNacional = new CadastroNacional().fromDTO(pessoaDTO.getCadastroNacional());
-        if (pessoaService.pessoaPossuiCadastro(new CadNacional(cadastroNacional))) {
+    public Conta novaConta(PessoaDTO pessoaDTO) {
+        if (pessoaService.pessoaPossuiCadastro(pessoaDTO.getCadastroNacional().getNumero())) {
             throw new ClienteJaCadastradoNoSistema(String.format("Cliente %s já está cadastrado no sistema!", pessoaDTO.nomeReferencia()));
         }
-        Conta novaConta = new Conta().fromDTO(contaDTO);
+        Pessoa pessoa = new PessoaFactory().produce(pessoaDTO);
+        Conta novaConta = new Conta(pessoa);
         novaConta.adicionaNumeroConta(this.geraNumeroConta());
         novaConta = this.contaRepository.save(novaConta);
         return novaConta;

@@ -5,6 +5,7 @@ import br.com.leivas.bancoleivas.factory.TransacaoStrategyFactory;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -25,9 +26,11 @@ public class Transacao extends BaseEntity<TransacaoDTO, Transacao> {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "CONTAORIGEMID", referencedColumnName = "ID")
+    @JsonIgnore
     private Conta contaOrigem;
     @ManyToOne
     @JoinColumn(name = "CONTADESTINOID", referencedColumnName = "ID")
+    @JsonIgnore
     private Conta contaDestino;
     @Column
     private BigDecimal valor;
