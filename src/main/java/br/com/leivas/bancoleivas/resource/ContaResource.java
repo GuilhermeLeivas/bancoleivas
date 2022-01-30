@@ -5,6 +5,7 @@ import br.com.leivas.bancoleivas.event.createdResourceDestinationEvent;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.service.ContaService;
+import br.com.leivas.bancoleivas.util.swagger.SwaggerJsonExamples;
 import io.swagger.annotations.*;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,10 @@ public class ContaResource {
             @ApiResponse(code = 409, message = "Cliente já cadastrado no sistema", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
+    @ApiModelProperty(
+            value = "An Example JSON value representing a transaction. " +
+                    "An example of the expected schema can be found down here.",
+            example = SwaggerJsonExamples.novaContaJsonExample)
     @PostMapping(value = "/nova", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> novaConta(@RequestBody ContaDTO contaDTO, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(contaDTO);
