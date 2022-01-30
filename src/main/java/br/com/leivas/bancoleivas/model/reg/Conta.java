@@ -61,13 +61,13 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     public void adicionaFundosTransacao(Transacao transacao) {
         BigDecimal valor = transacao.getValor();
         this.saldo = this.saldo.add(valor);
-        this.adicionaLancamentoExtrato(LancamentoExtrato.geraLancamentoExtrato(this, transacao, ENTRADA));
+        this.adicionaLancamentoExtrato(LancamentoExtrato.geraLancamentoExtrato(transacao, ENTRADA));
     }
 
     public void removeFundosTransacao(Transacao transacao) {
         BigDecimal valor = transacao.getValor();
         this.saldo = this.saldo.subtract(valor);
-        this.adicionaLancamentoExtrato(LancamentoExtrato.geraLancamentoExtrato(this, transacao, SAIDA));
+        this.adicionaLancamentoExtrato(LancamentoExtrato.geraLancamentoExtrato(transacao, SAIDA));
     }
 
     private void adicionaLancamentoExtrato(LancamentoExtrato lancamentoExtrato) {

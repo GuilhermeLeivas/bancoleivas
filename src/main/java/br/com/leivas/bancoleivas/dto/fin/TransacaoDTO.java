@@ -15,6 +15,5 @@ public class TransacaoDTO extends BaseDTO {
     private Integer codigoTransacao;
     private Long numeroContaOrigem;
     private Long numeroContaDestino;
-    private Long numeroProtocolo;
     private BigDecimal valor;
 }

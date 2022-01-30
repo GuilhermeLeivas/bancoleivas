@@ -38,6 +38,7 @@ public class Transacao extends BaseEntity<TransacaoDTO, Transacao> {
     private Long numeroProtocolo;
 
     @Transient
+    @JsonIgnore
     private ITransacaoStrategy executionStrategy;
 
     public void setContaOrigem(Conta contaOrigem) {

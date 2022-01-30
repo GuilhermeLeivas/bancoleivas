@@ -26,10 +26,6 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqFinLancamento")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "CONTAORIGEM", referencedColumnName = "ID")
-    @JsonIgnore
-    private Conta conta;
-    @ManyToOne
     @JoinColumn(name = "TRANSACAOORIGEMID", referencedColumnName = "ID")
     @JsonIgnore
     private Transacao transacaoOrigem;
@@ -39,15 +35,14 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
     @Enumerated(EnumType.ORDINAL)
     private TipoLancamento tipoLancamento;
 
-    public LancamentoExtrato(Conta conta, Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
-        this.conta = conta;
+    public LancamentoExtrato(Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
         this.transacaoOrigem = transacao;
         this.tipoLancamento = tipo;
         this.valor = this.defineValorLancamento();
     }
 
-    public static LancamentoExtrato geraLancamentoExtrato(Conta conta, Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
-        return new LancamentoExtrato(conta, transacao, tipo);
+    public static LancamentoExtrato geraLancamentoExtrato(Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
+        return new LancamentoExtrato(transacao, tipo);
     }
 
     @Override
