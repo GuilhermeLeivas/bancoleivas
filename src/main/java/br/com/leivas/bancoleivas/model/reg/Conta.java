@@ -32,7 +32,7 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     private Agencia agencia;
     @Column(unique = true, nullable = false)
     private Long numero;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "PESSOAID", referencedColumnName = "ID")
     private Pessoa pessoa;
     @Column

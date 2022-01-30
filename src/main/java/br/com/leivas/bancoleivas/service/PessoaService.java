@@ -22,6 +22,10 @@ public class PessoaService {
         return this.pessoaRepository.findByCadastroNacional(numero).isPresent();
     }
 
+    public Pessoa salvaPessoa(Pessoa pessoa) {
+        return this.pessoaRepository.save(pessoa);
+    }
+
     public Pessoa atualizaPessoa(PessoaDTO pessoaDTO) {
         Optional<Pessoa> pessoaSalva = this.pessoaRepository.findByCadastroNacional(pessoaDTO.getCadastroNacional().getNumero());
         if (pessoaSalva.isEmpty()) {

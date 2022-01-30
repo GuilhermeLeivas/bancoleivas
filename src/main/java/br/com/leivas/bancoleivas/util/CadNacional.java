@@ -9,7 +9,7 @@ import static br.com.leivas.bancoleivas.model.reg.CadastroNacional.TipoCadastroN
 public class CadNacional implements ICadNacional {
 
     private final String numeroCompleto;
-    private final String numeroBase;
+    private String numeroBase;
     private final String digito;
     private String filial;
 
@@ -23,6 +23,7 @@ public class CadNacional implements ICadNacional {
         if (tipoCadastroNacional == CNPJ) {
             CadastroNacionalFilialSeparator filialSeparator = new CadastroNacionalFilialSeparator();
             this.filial = filialSeparator.separate(numeroCompleto);
+            this.numeroBase = this.numeroBase.substring(0, (this.numeroBase.length() - this.filial.length()));
         }
     }
 

@@ -1,17 +1,14 @@
 package br.com.leivas.bancoleivas.service;
 
-import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.ClienteJaCadastradoNoSistema;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
 import br.com.leivas.bancoleivas.factory.PessoaFactory;
-import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.model.reg.NumeroConta;
 import br.com.leivas.bancoleivas.model.reg.Pessoa;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import br.com.leivas.bancoleivas.repository.reg.NumeroContaRepository;
-import br.com.leivas.bancoleivas.util.CadNacional;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,6 +33,7 @@ public class ContaService {
             throw new ClienteJaCadastradoNoSistema(String.format("Cliente %s já está cadastrado no sistema!", pessoaDTO.nomeReferencia()));
         }
         Pessoa pessoa = new PessoaFactory().produce(pessoaDTO);
+        pessoa = this.pessoaService.salvaPessoa(pessoa);
         Conta novaConta = new Conta(pessoa);
         novaConta.adicionaNumeroConta(this.geraNumeroConta());
         novaConta = this.contaRepository.save(novaConta);

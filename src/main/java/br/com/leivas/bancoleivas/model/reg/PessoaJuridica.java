@@ -36,6 +36,6 @@ public class PessoaJuridica extends Pessoa {
         this.nomeFantasia = pessoaJuridicaDTO.getNomeFantasia();
         this.DataFundacao = pessoaJuridicaDTO.getDataFundacao();
         this.setCadastroNacional(new CadastroNacionalFactory().produce(dto.getCadastroNacional()));
-        return null;
+        return this;
     }
 }
