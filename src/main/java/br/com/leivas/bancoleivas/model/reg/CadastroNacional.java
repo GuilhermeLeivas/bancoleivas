@@ -37,12 +37,8 @@ public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNa
     @Enumerated(EnumType.ORDINAL)
     private TipoCadastroNacional tipo;
 
-    @Transient
-    private String numeroCompleto;
-
     @Override
     public CadastroNacional fromDTO(CadastroNacionalDTO dto) {
-        this.numeroCompleto = dto.getNumero();
         this.tipo = dto.getTipo();
         return this;
     }

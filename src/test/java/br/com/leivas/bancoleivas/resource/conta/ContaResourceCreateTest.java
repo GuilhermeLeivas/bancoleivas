@@ -2,6 +2,7 @@ package br.com.leivas.bancoleivas.resource.conta;
 
 import br.com.leivas.bancoleivas.BaseTest;
 import br.com.leivas.bancoleivas.resource.dummy.ContaDummyData;
+import br.com.leivas.bancoleivas.resource.dummy.PessoaDummyData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -27,18 +28,34 @@ public class ContaResourceCreateTest extends BaseTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void novaConta() throws Exception {
+    public void novaContaFisica() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/conta/nova")
+                .post("/conta/fisica/nova")
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.getDummyData())
+                .content(this.getDummyDataPessoaFisica())
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult result = this.mockMvc.perform(requestBuilder).andReturn();
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
-    private String getDummyData() throws JsonProcessingException {
-        return this.objectMapper.writeValueAsString(ContaDummyData.getDTOA());
+    @Test
+    public void novaContaJuridica() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/conta/juridica/nova")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.getDummyDataPessoaJuridica())
+                .contentType(MediaType.APPLICATION_JSON);
+        MvcResult result = this.mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+    private String getDummyDataPessoaFisica() throws JsonProcessingException {
+        return this.objectMapper.writeValueAsString(PessoaDummyData.pessoaFisicaDTO("Guilherme Leivas"));
+    }
+
+    private String getDummyDataPessoaJuridica() throws JsonProcessingException {
+        return this.objectMapper.writeValueAsString(PessoaDummyData.pessoaJuridicaDTO("Susi de F Leivas"));
     }
 }

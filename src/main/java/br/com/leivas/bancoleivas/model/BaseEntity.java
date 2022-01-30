@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -14,10 +15,13 @@ import java.util.Date;
 public abstract class BaseEntity<D, E> implements DTOConverter<D, E> {
 
     @Version
+    @JsonIgnore
     private Integer optmisticklock;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date dtCreate;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date dtUpdate;
 
     @PrePersist

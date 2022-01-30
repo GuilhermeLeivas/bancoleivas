@@ -4,6 +4,8 @@ import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.util.separator.CadastroNacionalDigitoSeparator;
 import br.com.leivas.bancoleivas.util.separator.CadastroNacionalFilialSeparator;
 
+import static br.com.leivas.bancoleivas.model.reg.CadastroNacional.TipoCadastroNacional.CNPJ;
+
 public class CadNacional implements ICadNacional {
 
     private final String numeroCompleto;
@@ -11,16 +13,16 @@ public class CadNacional implements ICadNacional {
     private final String digito;
     private String filial;
 
-    public CadNacional(CadastroNacional cadastroNacional) {
+    public CadNacional(String numeroCompleto, CadastroNacional.TipoCadastroNacional tipoCadastroNacional) {
         CadastroNacionalDigitoSeparator digitoSeparator = new CadastroNacionalDigitoSeparator();
-        digitoSeparator.separate(cadastroNacional.getNumeroCompleto());
-        this.numeroCompleto = cadastroNacional.getNumeroCompleto();
+        digitoSeparator.separate(numeroCompleto);
+        this.numeroCompleto = numeroCompleto;
         this.numeroBase = digitoSeparator.getNumeroBase();
         this.digito = digitoSeparator.getDigito();
 
-        if (cadastroNacional.getTipo() == CadastroNacional.TipoCadastroNacional.CNPJ) {
+        if (tipoCadastroNacional == CNPJ) {
             CadastroNacionalFilialSeparator filialSeparator = new CadastroNacionalFilialSeparator();
-            this.filial = filialSeparator.separate(cadastroNacional.getNumeroCompleto());
+            this.filial = filialSeparator.separate(numeroCompleto);
         }
     }
 

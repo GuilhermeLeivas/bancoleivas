@@ -5,6 +5,7 @@ import br.com.leivas.bancoleivas.factory.PessoaFactory;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,12 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     private BigDecimal saldo = BigDecimal.ZERO;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "CONTAID", referencedColumnName = "ID")
+    @JsonIgnore
     private List<LancamentoExtrato> lancamentosExtrato;
+
+    public Conta(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -68,8 +74,6 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
 
     @Override
     public Conta fromDTO(ContaDTO dto) {
-        this.pessoa = new PessoaFactory().produce(dto.getPessoa());
-        //TODO:preencher a agencia;
         return this;
     }
 

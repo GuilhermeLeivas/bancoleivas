@@ -18,8 +18,8 @@ public class PessoaService {
         this.pessoaRepository = pessoaRepository;
     }
 
-    public boolean pessoaPossuiCadastro(ICadNacional cadNacional) {
-        return this.pessoaRepository.findByCadastroNacional(cadNacional.numero()).isPresent();
+    public boolean pessoaPossuiCadastro(String numero) {
+        return this.pessoaRepository.findByCadastroNacional(numero).isPresent();
     }
 
     public Pessoa atualizaPessoa(PessoaDTO pessoaDTO) {

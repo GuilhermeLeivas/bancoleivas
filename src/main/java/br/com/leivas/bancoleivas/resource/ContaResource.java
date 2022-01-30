@@ -1,6 +1,8 @@
 package br.com.leivas.bancoleivas.resource;
 
 import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
+import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
+import br.com.leivas.bancoleivas.dto.reg.PessoaJuridicaDTO;
 import br.com.leivas.bancoleivas.event.createdResourceDestinationEvent;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.reg.Conta;
@@ -26,20 +28,30 @@ public class ContaResource {
         this.publisher = publisher;
     }
 
-    @ApiOperation(value = "Endpoint utilizado para criar uma nova conta com base nos dados passados de uma pessoa.")
+    @ApiOperation(value = "Endpoint utilizado para criar uma nova conta PESSOA FÍSICA com base nos dados passados de uma pessoa.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Nova conta criada", response = Conta.class),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 409, message = "Cliente já cadastrado no sistema", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
-    @ApiModelProperty(
-            value = "An Example JSON value representing a transaction. " +
-                    "An example of the expected schema can be found down here.",
-            example = SwaggerJsonExamples.novaContaJsonExample)
-    @PostMapping(value = "/nova", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> novaConta(@RequestBody ContaDTO contaDTO, HttpServletResponse response) {
-        Conta novaConta = contaService.novaConta(contaDTO);
+    @PostMapping(value = "/fisica/nova", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> novaContaFisica(@RequestBody PessoaFisicaDTO pessoa, HttpServletResponse response) {
+        Conta novaConta = contaService.novaConta(pessoa);
+        this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
+    }
+
+    @ApiOperation(value = "Endpoint utilizado para criar uma nova conta PESSOA JURÍDICA com base nos dados passados de uma pessoa.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Nova conta criada", response = Conta.class),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 409, message = "Cliente já cadastrado no sistema", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
+    })
+    @PostMapping(value = "/juridica/nova", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> novaContaJuridica(@RequestBody PessoaJuridicaDTO pessoa, HttpServletResponse response) {
+        Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
     }
