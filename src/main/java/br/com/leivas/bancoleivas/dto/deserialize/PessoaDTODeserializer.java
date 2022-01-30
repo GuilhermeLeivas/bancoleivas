@@ -62,7 +62,7 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
         pessoaFisicaDTO.setDataNascimento(this.sdf.parse(this.jsonNode.get("dataNascimento").asText()));
         pessoaFisicaDTO.setNomePai(this.jsonNode.get("nomePai").asText());
         pessoaFisicaDTO.setNomeMae(this.jsonNode.get("nomeMae").asText());
-        pessoaFisicaDTO.setNomeConjugue(this.jsonNode.get("nomeConjuge") != null ? this.jsonNode.get("nomeConjuge").asText() : null);
+        pessoaFisicaDTO.setNomeConjugue(this.jsonNode.get("nomeConjugue") != null ? this.jsonNode.get("nomeConjuge").asText() : null);
         pessoaFisicaDTO.setSexo(PessoaFisica.SexoPessoa.valueOf(this.jsonNode.get("sexo").asText()));
         return pessoaFisicaDTO;
     }
