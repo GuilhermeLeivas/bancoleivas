@@ -4,10 +4,12 @@ import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.ClienteJaCadastradoNoSistema;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
+import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.model.reg.NumeroConta;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import br.com.leivas.bancoleivas.repository.reg.NumeroContaRepository;
+import br.com.leivas.bancoleivas.util.CadNacional;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,7 +31,8 @@ public class ContaService {
 
     public Conta novaConta(ContaDTO contaDTO) {
         PessoaDTO pessoaDTO = contaDTO.getPessoa();
-        if (pessoaService.pessoaPossuiCadastro(pessoaDTO.getCadastroNacional())) {
+        CadastroNacional cadastroNacional = new CadastroNacional().fromDTO(pessoaDTO.getCadastroNacional());
+        if (pessoaService.pessoaPossuiCadastro(new CadNacional(cadastroNacional))) {
             throw new ClienteJaCadastradoNoSistema(String.format("Cliente %s já está cadastrado no sistema!", pessoaDTO.nomeReferencia()));
         }
         Conta novaConta = new Conta().fromDTO(contaDTO);

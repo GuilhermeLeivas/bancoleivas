@@ -4,18 +4,20 @@ import br.com.leivas.bancoleivas.dto.reg.CadastroNacionalDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "REGCADASTRONACIONAL", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"numero", "emissor", "digito"})})
 @SequenceGenerator(name = "seqRegCadastroNacional", sequenceName = "SEQREGCADASTRONACIONAL", allocationSize = 1)
-public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNacional> implements ICadNacional {
+public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNacional> {
 
     public enum TipoCadastroNacional {
         CPF, CNPJ
@@ -35,18 +37,14 @@ public class CadastroNacional extends BaseEntity<CadastroNacionalDTO, CadastroNa
     @Enumerated(EnumType.ORDINAL)
     private TipoCadastroNacional tipo;
 
+    @Transient
+    private String numeroCompleto;
+
     @Override
     public CadastroNacional fromDTO(CadastroNacionalDTO dto) {
-        return null;
+        this.numeroCompleto = dto.getNumero();
+        this.tipo = dto.getTipo();
+        return this;
     }
 
-    @Override
-    public String numero() {
-        return this.numero;
-    }
-
-    @Override
-    public String digito() {
-        return this.digito;
-    }
 }
