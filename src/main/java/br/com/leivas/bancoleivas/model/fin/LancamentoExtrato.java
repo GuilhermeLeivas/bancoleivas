@@ -22,7 +22,7 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegConta")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqFinLancamento")
     private Long id;
 
     @ManyToOne
