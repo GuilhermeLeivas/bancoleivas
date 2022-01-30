@@ -13,7 +13,7 @@ public class CadastroNacionalParser implements Parser<CadastroNacionalDTO, Cadas
             Boolean documentoEhValido = new CadastroNacionalValidator().isValid(cadastroNacionalDTO.getNumero());
             if (documentoEhValido) {
                 CadastroNacional.TipoCadastroNacional tipoCadastroNacional = cadastroNacionalDTO.getTipo();
-                CadastroNacionalDigitoSeparator separator = new CadastroNacionalDigitoSeparator(cadastroNacionalDTO.getNumero());
+                CadastroNacionalDigitoSeparator separator = new CadastroNacionalDigitoSeparator();
                 return CadastroNacional.builder()
                         .numero(separator.getNumeroBase())
                         .digito(separator.getDigito())

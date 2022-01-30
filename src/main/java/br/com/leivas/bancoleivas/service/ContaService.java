@@ -4,13 +4,16 @@ import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.ClienteJaCadastradoNoSistema;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
+import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.model.reg.NumeroConta;
 import br.com.leivas.bancoleivas.repository.reg.ContaRepository;
 import br.com.leivas.bancoleivas.repository.reg.NumeroContaRepository;
+import br.com.leivas.bancoleivas.util.CadNacional;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -28,7 +31,8 @@ public class ContaService {
 
     public Conta novaConta(ContaDTO contaDTO) {
         PessoaDTO pessoaDTO = contaDTO.getPessoa();
-        if (pessoaService.pessoaPossuiCadastro(pessoaDTO.getCadastroNacional())) {
+        CadastroNacional cadastroNacional = new CadastroNacional().fromDTO(pessoaDTO.getCadastroNacional());
+        if (pessoaService.pessoaPossuiCadastro(new CadNacional(cadastroNacional))) {
             throw new ClienteJaCadastradoNoSistema(String.format("Cliente %s já está cadastrado no sistema!", pessoaDTO.nomeReferencia()));
         }
         Conta novaConta = new Conta().fromDTO(contaDTO);
@@ -38,26 +42,29 @@ public class ContaService {
     }
 
     public Conta contaInfo(Long numeroConta) {
-        Optional<Conta> conta = this.contaRepository.findByNumero(numeroConta);
-        this.throwsIfContaNotExists(conta, numeroConta);
-        return conta.get();
+        return this.findContaByNumero(numeroConta);
     }
 
     public void deletaConta(Long numeroConta) {
+        Conta conta = this.findContaByNumero(numeroConta);
+        this.contaRepository.delete(conta);
+    }
+
+    public Conta findContaByNumero(Long numeroConta) {
         Optional<Conta> conta = this.contaRepository.findByNumero(numeroConta);
-        this.throwsIfContaNotExists(conta, numeroConta);
-        this.contaRepository.delete(conta.get());
+        if (conta.isEmpty()) {
+            throw new ContaInexistenteException(String.format("Conta: %s não se encontra no sistema!", numeroConta));
+        }
+        return conta.get();
+    }
+
+    public void atualizaMultiplasContas(Conta... contas) {
+        this.contaRepository.saveAll(Arrays.asList(contas));
     }
 
     private NumeroConta geraNumeroConta() {
         NumeroConta numeroConta = new NumeroConta();
         numeroConta = this.numeroContaRepository.save(numeroConta);
         return numeroConta;
-    }
-
-    private void throwsIfContaNotExists(Optional<Conta> conta, Long numeroContaPassado) {
-        if (conta.isEmpty()) {
-            throw new ContaInexistenteException(String.format("Conta: %s não se encontra no sistema!", numeroContaPassado));
-        }
     }
 }

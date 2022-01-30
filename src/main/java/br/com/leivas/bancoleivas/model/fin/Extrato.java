@@ -1,18 +1,21 @@
 package br.com.leivas.bancoleivas.model.fin;
 
-import br.com.leivas.bancoleivas.model.reg.Conta;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Builder
 public class Extrato implements Serializable {
-    private Conta conta;
-    private Set<Transacao> transacoes;
+    private Long numeroConta;
+    private Page<LancamentoExtrato> lancamentos;
     private Date dtInicial;
     private Date dtFinal;
+
+    public void setLancamentos(Page<LancamentoExtrato> lancamentos) {
+        this.lancamentos = lancamentos;
+    }
 }

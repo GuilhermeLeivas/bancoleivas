@@ -3,6 +3,7 @@ package br.com.leivas.bancoleivas.factory;
 import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
 import br.com.leivas.bancoleivas.exception.custom.FalhaNaGeracaoDeTransacao;
 import br.com.leivas.bancoleivas.exception.custom.TransacaoNaoEncontradaException;
+import br.com.leivas.bancoleivas.strategy.TransferenciaStrategy;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 public final class TransacaoStrategyFactory implements IFactory<Integer, ITransacaoStrategy> {
 
     private enum IdentificadorTransacao {
-        TRANSFERENCIA(200, "TransferenciaStrategy"),
+        TRANSFERENCIA(200, TransferenciaStrategy.class.getName()),
         DEPOSITO(201, "DepositoStrategy");
         private final Integer codigo;
         private final String transacaoCommand;
@@ -48,7 +49,7 @@ public final class TransacaoStrategyFactory implements IFactory<Integer, ITransa
             Constructor<?> commandConstructor = classRef.getConstructor();
             return (ITransacaoStrategy) commandConstructor.newInstance();
         } catch (Exception ex) {
-            String message = "Falha ao localizar funcionalidade, tente novamente mais tarde!";
+            String message = String.format("Falha ao localizar funcionalidade %s, tente novamente mais tarde!", comandoDaTransacao);
             Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, message);
             throw new FalhaNaGeracaoDeTransacao(ex, message);
         }

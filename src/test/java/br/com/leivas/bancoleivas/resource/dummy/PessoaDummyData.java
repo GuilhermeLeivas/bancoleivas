@@ -3,6 +3,7 @@ package br.com.leivas.bancoleivas.resource.dummy;
 import br.com.leivas.bancoleivas.dto.reg.CadastroNacionalDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
+import br.com.leivas.bancoleivas.dto.reg.PessoaJuridicaDTO;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.Pessoa;
 import br.com.leivas.bancoleivas.model.reg.PessoaFisica;
@@ -28,6 +29,24 @@ public class PessoaDummyData {
                         .emissor("ssp")
                         .numero("76626415034")
                         .tipo(CadastroNacional.TipoCadastroNacional.CPF)
+                        .build()
+        );
+        return pessoaFisicaDTO;
+    }
+
+    public static PessoaDTO pessoaJuridicaDTO(String nome) {
+        LocalDate dataFundacao = LocalDate.of(1968, 5, 12);
+        PessoaJuridicaDTO pessoaFisicaDTO = new PessoaJuridicaDTO();
+        pessoaFisicaDTO.setNomeFantasia(nome);
+        pessoaFisicaDTO.setDataFundacao(Date.from(dataFundacao.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        pessoaFisicaDTO.setInscEstadual("23234");
+        pessoaFisicaDTO.setInscMunicipal("12134");
+        pessoaFisicaDTO.setCadastroNacional(
+                CadastroNacionalDTO
+                        .builder()
+                        .emissor("ssp")
+                        .numero("20139621000168")
+                        .tipo(CadastroNacional.TipoCadastroNacional.CNPJ)
                         .build()
         );
         return pessoaFisicaDTO;
