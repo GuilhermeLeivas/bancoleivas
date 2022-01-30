@@ -25,7 +25,7 @@ public class PessoaResource {
 
     @ApiOperation(value = "Endpoint utilizado para atualizar dados do CLIENTE.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Dados do cliente foram atualizados"),
+            @ApiResponse(code = 200, message = "Dados do cliente foram atualizados", response = Pessoa.class),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 404, message = "Cliente não possui cadastro no sistema", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
