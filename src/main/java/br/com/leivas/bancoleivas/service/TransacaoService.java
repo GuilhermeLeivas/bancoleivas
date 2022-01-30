@@ -24,8 +24,8 @@ public class TransacaoService {
     }
 
     public Transacao novaTransacao(TransacaoDTO transacaoDTO) {
-        final Conta contaOrigem = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaOrigem());
-        final Conta contaDestino = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaDestino());
+        Conta contaOrigem = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaOrigem());
+        Conta contaDestino = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaDestino());
         Transacao novaTransacao = new Transacao().fromDTO(transacaoDTO);
         novaTransacao.setContaOrigem(contaOrigem);
         novaTransacao.setContaDestino(contaDestino);

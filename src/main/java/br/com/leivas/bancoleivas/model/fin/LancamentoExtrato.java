@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "FINLANCAMENTOEXTRATO")
 @SequenceGenerator(name = "seqFinLancamento", sequenceName = "SEQFINLANCAMENTOEXTRATO", allocationSize = 1)
@@ -24,32 +25,29 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqFinLancamento")
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "CONTAORIGEM", referencedColumnName = "ID")
     @JsonIgnore
     private Conta conta;
-
     @ManyToOne
     @JoinColumn(name = "TRANSACAOORIGEMID", referencedColumnName = "ID")
     @JsonIgnore
     private Transacao transacaoOrigem;
-
     @Column
     private BigDecimal valor;
-
     @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private TipoLancamento tipoLancamento;
 
-    public void adicionaConta(Conta conta) {
+    public LancamentoExtrato(Conta conta, Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
         this.conta = conta;
+        this.transacaoOrigem = transacao;
+        this.tipoLancamento = tipo;
+        this.valor = this.defineValorLancamento();
     }
 
-    public void adicionaTransacaoOrigemPorTipo(Transacao transacao, TipoLancamento tipoLancamento) {
-        this.transacaoOrigem = transacao;
-        this.tipoLancamento = tipoLancamento;
-        this.valor = this.defineValorLancamento();
+    public static LancamentoExtrato geraLancamentoExtrato(Conta conta, Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
+        return new LancamentoExtrato(conta, transacao, tipo);
     }
 
     @Override

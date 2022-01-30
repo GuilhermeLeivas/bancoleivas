@@ -12,7 +12,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+import static br.com.leivas.bancoleivas.model.fin.LancamentoExtrato.TipoLancamento.ENTRADA;
+import static br.com.leivas.bancoleivas.model.fin.LancamentoExtrato.TipoLancamento.SAIDA;
 
 @Getter
 @AllArgsConstructor
@@ -57,19 +61,20 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     public void adicionaFundosTransacao(Transacao transacao) {
         BigDecimal valor = transacao.getValor();
         this.saldo = this.saldo.add(valor);
-        this.geraLancamentoExtrato(transacao, LancamentoExtrato.TipoLancamento.ENTRADA);
+        this.adicionaLancamentoExtrato(LancamentoExtrato.geraLancamentoExtrato(this, transacao, ENTRADA));
     }
 
     public void removeFundosTransacao(Transacao transacao) {
         BigDecimal valor = transacao.getValor();
         this.saldo = this.saldo.subtract(valor);
-        this.geraLancamentoExtrato(transacao, LancamentoExtrato.TipoLancamento.SAIDA);
+        this.adicionaLancamentoExtrato(LancamentoExtrato.geraLancamentoExtrato(this, transacao, SAIDA));
     }
 
-    private void geraLancamentoExtrato(Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
-        LancamentoExtrato lancamentoExtrato = new LancamentoExtrato();
-        lancamentoExtrato.adicionaConta(this);
-        lancamentoExtrato.adicionaTransacaoOrigemPorTipo(transacao, tipo);
+    private void adicionaLancamentoExtrato(LancamentoExtrato lancamentoExtrato) {
+        if (this.lancamentosExtrato == null) {
+            this.lancamentosExtrato = new ArrayList<>();
+        }
+        this.lancamentosExtrato.add(lancamentoExtrato);
     }
 
     @Override
