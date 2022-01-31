@@ -1,6 +1,6 @@
 package br.com.leivas.bancoleivas.factory;
 
-import br.com.leivas.bancoleivas.exception.custom.FalhaNaGeracaoDeTransacao;
+import br.com.leivas.bancoleivas.exception.custom.TransacaoSemImplementacaoConhecida;
 import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ public final class TransacaoStrategyFactory implements IFactory<String, ITransac
         } catch (Exception ex) {
             String message = String.format("Falha ao implementação %s, tente novamente mais tarde!", strategy);
             Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, message);
-            throw new FalhaNaGeracaoDeTransacao(ex, message);
+            throw new TransacaoSemImplementacaoConhecida(ex, message);
         }
     }
 }
