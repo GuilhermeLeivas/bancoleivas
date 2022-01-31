@@ -1,13 +1,11 @@
 package br.com.leivas.bancoleivas.dto.fin;
 
 import br.com.leivas.bancoleivas.dto.BaseDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ModeloTransacaoDTO extends BaseDTO {
