@@ -22,7 +22,6 @@ public class CadastroNacionalDTO extends BaseDTO {
     @NotEmpty
     private String emissor;
     @NotNull
-    @NotEmpty
     private CadastroNacional.TipoCadastroNacional tipo;
 
     @Override

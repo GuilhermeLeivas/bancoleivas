@@ -25,6 +25,5 @@ public class PessoaJuridicaDTO extends PessoaDTO {
     @NotEmpty
     private String nomeFantasia;
     @NotNull
-    @NotEmpty
     private Date DataFundacao;
 }

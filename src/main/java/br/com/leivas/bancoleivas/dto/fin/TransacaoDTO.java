@@ -15,15 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class TransacaoDTO extends BaseDTO {
     @NotNull
-    @NotEmpty
     private Integer codigoTransacao;
     @NotNull
-    @NotEmpty
     private Long numeroContaOrigem;
     @NotNull
-    @NotEmpty
     private Long numeroContaDestino;
     @NotNull
-    @NotEmpty
     private BigDecimal valor;
 }

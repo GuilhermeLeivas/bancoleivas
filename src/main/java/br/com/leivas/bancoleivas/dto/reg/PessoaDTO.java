@@ -20,12 +20,11 @@ import java.util.Objects;
 public abstract class PessoaDTO extends BaseDTO {
 
     @NotNull
-    @NotEmpty
     private CadastroNacionalDTO cadastroNacional;
 
 
     public String nomeReferencia() {
-        String nomeReferencia = "";
+        String nomeReferencia;
         if (this instanceof PessoaFisicaDTO pf) {
             nomeReferencia = pf.getNome();
         } else {

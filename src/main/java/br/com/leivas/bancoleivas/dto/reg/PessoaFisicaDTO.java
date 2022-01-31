@@ -19,10 +19,8 @@ public class PessoaFisicaDTO extends PessoaDTO {
     @NotEmpty
     private String nome;
     @NotNull
-    @NotEmpty
     private Date dataNascimento;
     @NotNull
-    @NotEmpty
     private PessoaFisica.SexoPessoa sexo;
     @NotNull
     @NotEmpty
@@ -30,7 +28,5 @@ public class PessoaFisicaDTO extends PessoaDTO {
     @NotNull
     @NotEmpty
     private String nomeMae;
-    @NotNull
-    @NotEmpty
     private String nomeConjugue;
 }

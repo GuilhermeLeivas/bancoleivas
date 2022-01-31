@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 public class ModeloTransacaoDTO extends BaseDTO {
 
     @NotNull
-    @NotEmpty
     private Integer codigo;
     @NotNull
     @NotEmpty

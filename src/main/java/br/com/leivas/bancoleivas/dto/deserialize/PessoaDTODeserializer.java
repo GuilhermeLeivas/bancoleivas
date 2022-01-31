@@ -44,7 +44,7 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
     }
 
     @Override
-    public PessoaDTO deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public PessoaDTO deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         this.jsonNode = jsonParser.getCodec().readTree(jsonParser);
         CadastroNacionalDTO cadastroNacionalDTO = this.fillCadastroNacionalDTO();
         try {
@@ -58,29 +58,35 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
 
     private PessoaDTO fillPessoaFisicaDTO() throws ParseException {
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO();
-        pessoaFisicaDTO.setNome(this.jsonNode.get("nome").asText());
-        pessoaFisicaDTO.setDataNascimento(this.sdf.parse(this.jsonNode.get("dataNascimento").asText()));
-        pessoaFisicaDTO.setNomePai(this.jsonNode.get("nomePai").asText());
-        pessoaFisicaDTO.setNomeMae(this.jsonNode.get("nomeMae").asText());
-        pessoaFisicaDTO.setNomeConjugue(this.jsonNode.get("nomeConjugue") != null ? this.jsonNode.get("nomeConjuge").asText() : null);
-        pessoaFisicaDTO.setSexo(PessoaFisica.SexoPessoa.valueOf(this.jsonNode.get("sexo").asText()));
+        pessoaFisicaDTO.setNome(this.jsonNode.get("nome") != null ? this.jsonNode.get("nome").asText() : null);
+        pessoaFisicaDTO.setDataNascimento(this.jsonNode.get("dataNascimento") != null ?
+                this.sdf.parse(this.jsonNode.get("dataNascimento").asText()) : null);
+        pessoaFisicaDTO.setNomePai(this.jsonNode.get("nomePai") != null ? this.jsonNode.get("nomePai").asText() : null);
+        pessoaFisicaDTO.setNomeMae(this.jsonNode.get("nomeMae") != null ? this.jsonNode.get("nomeMae").asText() : null);
+        pessoaFisicaDTO.setNomeConjugue(this.jsonNode.get("nomeConjugue") != null ? this.jsonNode.get("nomeConjugue").asText() : null);
+        pessoaFisicaDTO.setSexo(this.jsonNode.get("sexo") != null ? PessoaFisica.SexoPessoa.valueOf(this.jsonNode.get("sexo").asText()) : null);
         return pessoaFisicaDTO;
     }
 
     private PessoaDTO fillPessoaJuridicaDTO() throws ParseException {
         PessoaJuridicaDTO pessoaJuridicaDTO = new PessoaJuridicaDTO();
-        pessoaJuridicaDTO.setInscEstadual(this.jsonNode.get("inscEstadual").asText());
-        pessoaJuridicaDTO.setInscMunicipal(this.jsonNode.get("inscMunicipal").asText());
-        pessoaJuridicaDTO.setNomeFantasia(this.jsonNode.get("nomeFantasia").asText());
-        pessoaJuridicaDTO.setDataFundacao(this.sdf.parse(this.jsonNode.get("dataFundacao").asText()));
+        pessoaJuridicaDTO.setInscEstadual(this.jsonNode.get("inscEstadual") != null ? this.jsonNode.get("inscEstadual").asText() : null);
+        pessoaJuridicaDTO.setInscMunicipal(this.jsonNode.get("inscMunicipal") != null ? this.jsonNode.get("inscMunicipal").asText() : null);
+        pessoaJuridicaDTO.setNomeFantasia(this.jsonNode.get("nomeFantasia") != null ? this.jsonNode.get("nomeFantasia").asText() : null);
+        pessoaJuridicaDTO.setDataFundacao(this.jsonNode.get("dataFundacao") != null ? this.sdf.parse(this.jsonNode.get("dataFundacao").asText()) : null);
         return pessoaJuridicaDTO;
     }
 
     private CadastroNacionalDTO fillCadastroNacionalDTO() {
         CadastroNacionalDTO cadastroNacionalDTO = new CadastroNacionalDTO();
-        cadastroNacionalDTO.setTipo(CadastroNacional.TipoCadastroNacional.valueOf(this.jsonNode.get("cadastroNacional").get("tipo").asText()));
-        cadastroNacionalDTO.setNumero(this.jsonNode.get("cadastroNacional").get("numero").asText());
-        cadastroNacionalDTO.setEmissor(this.jsonNode.get("cadastroNacional").get("emissor").asText());
+        if (this.jsonNode.get("cadastroNacional") != null) {
+            cadastroNacionalDTO.setTipo(this.jsonNode.get("cadastroNacional").get("tipo") != null ?
+                    CadastroNacional.TipoCadastroNacional.valueOf(this.jsonNode.get("cadastroNacional").get("tipo").asText()) : null);
+            cadastroNacionalDTO.setNumero(this.jsonNode.get("cadastroNacional").get("numero") != null ?
+                    this.jsonNode.get("cadastroNacional").get("numero").asText() : null);
+            cadastroNacionalDTO.setEmissor(this.jsonNode.get("cadastroNacional").get("emissor") != null ?
+                    this.jsonNode.get("cadastroNacional").get("emissor").asText() : null);
+        }
         return cadastroNacionalDTO;
     }
 }
