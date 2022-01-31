@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @ToString
@@ -34,11 +35,16 @@ public class LancamentoExtrato extends BaseEntity<LancamentoExtratoDTO, Lancamen
     @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private TipoLancamento tipoLancamento;
+    @Temporal(TemporalType.DATE)
+    @Column
+    private Date dataReferencia;
+
 
     public LancamentoExtrato(Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {
         this.transacaoOrigem = transacao;
         this.tipoLancamento = tipo;
         this.valor = this.defineValorLancamento();
+        this.dataReferencia = new Date();
     }
 
     public static LancamentoExtrato geraLancamentoExtrato(Transacao transacao, LancamentoExtrato.TipoLancamento tipo) {

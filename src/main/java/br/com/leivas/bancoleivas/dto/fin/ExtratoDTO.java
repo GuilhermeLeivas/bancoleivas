@@ -1,7 +1,6 @@
 package br.com.leivas.bancoleivas.dto.fin;
 
 import br.com.leivas.bancoleivas.dto.BaseDTO;
-import br.com.leivas.bancoleivas.dto.deserialize.ExtratoDTODeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -14,7 +13,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonDeserialize(using = ExtratoDTODeserializer.class)
 public class ExtratoDTO extends BaseDTO {
 
     private Long numeroConta;

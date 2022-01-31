@@ -15,8 +15,8 @@ public interface LancamentoExtratoRepository extends JpaRepository<LancamentoExt
     @Query("SELECT lancamentos FROM Conta conta " +
             "INNER JOIN conta.lancamentosExtrato lancamentos " +
             "WHERE conta.numero = :#{#pedidoExtrato.numeroConta} " +
-            "AND (lancamentos.dtCreate >= :#{#pedidoExtrato.dtInicial} " +
-            "AND lancamentos.dtCreate <= :#{#pedidoExtrato.dtFinal}) " +
+            "AND (lancamentos.dataReferencia >= :#{#pedidoExtrato.dtInicial} " +
+            "AND lancamentos.dataReferencia <= :#{#pedidoExtrato.dtFinal}) " +
             "ORDER BY lancamentos.dtCreate DESC")
     Page<LancamentoExtrato> lancamentosPorConta(@Param("pedidoExtrato") ExtratoDTO pedidoExtrato, Pageable pageable);
 }
