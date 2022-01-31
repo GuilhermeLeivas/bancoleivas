@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import static br.com.leivas.bancoleivas.model.fin.ModeloTransacao.ExecutacaoDaTransacao.CLIENTE;
-import static br.com.leivas.bancoleivas.model.fin.ModeloTransacao.ExecutacaoDaTransacao.OPERACIONAL;
-
 @Service
 @Transactional
 public class TransacaoService {
@@ -29,7 +26,7 @@ public class TransacaoService {
         this.modeloTransacaoService = modeloTransacaoService;
     }
 
-    public Transacao novaTransacaoCliente(TransacaoDTO transacaoDTO, ModeloTransacao.ExecutacaoDaTransacao executacaoDaTransacao) {
+    public Transacao novaTransacao(TransacaoDTO transacaoDTO, ModeloTransacao.ExecutacaoDaTransacao executacaoDaTransacao) {
         Conta contaOrigem = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaOrigem());
         Conta contaDestino = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaDestino());
         Transacao novaTransacao = new Transacao().fromDTO(transacaoDTO);
