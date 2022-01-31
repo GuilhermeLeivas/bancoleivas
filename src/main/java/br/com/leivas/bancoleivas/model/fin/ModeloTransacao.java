@@ -2,6 +2,7 @@ package br.com.leivas.bancoleivas.model.fin;
 
 import br.com.leivas.bancoleivas.dto.fin.ModeloTransacaoDTO;
 import br.com.leivas.bancoleivas.model.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.models.Model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class ModeloTransacao extends BaseEntity<ModeloTransacaoDTO, ModeloTransa
     @Column
     private String nome;
     @Column(length = 1000)
+    @JsonIgnore
     private String transacaoStrategy;
 
     @Override

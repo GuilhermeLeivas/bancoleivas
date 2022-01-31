@@ -55,7 +55,7 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     }
 
     public boolean possuiSaldoParaTransacao(Transacao transacao) {
-        return this.saldo.compareTo(transacao.getValor()) > 0;
+        return this.saldo.compareTo(transacao.getValor()) >= 0;
     }
 
     public void adicionaFundosTransacao(Transacao transacao) {

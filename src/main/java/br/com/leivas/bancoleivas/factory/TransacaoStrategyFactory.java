@@ -18,7 +18,8 @@ public final class TransacaoStrategyFactory implements IFactory<String, ITransac
             Constructor<?> commandConstructor = classRef.getConstructor();
             return (ITransacaoStrategy) commandConstructor.newInstance();
         } catch (Exception ex) {
-            String message = String.format("Falha ao implementação %s, tente novamente mais tarde!", strategy);
+            String message = "A Implementação para transação informada não foi encontrada," +
+                    "por favor, entre em contato com os desenvolvedores!";
             Logger.getLogger(this.getClass().getSimpleName()).log(Level.SEVERE, message);
             throw new TransacaoSemImplementacaoConhecida(ex, message);
         }

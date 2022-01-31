@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.exception.handler;
 
 import br.com.leivas.bancoleivas.exception.custom.*;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,19 +69,19 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     private String getCause(Throwable ex) {
-        return ex.getCause() != null ? ex.getCause().toString() : ex.toString();
+        return ex.getStackTrace() != null ? ExceptionUtils.getStackTrace(ex) : ex.toString();
     }
 
     // Facilitador para retornar mensagens de erro no corpo da resposta http.
     public static class Erro {
+        private final String timestamp;
         private final String mensagemUsuario;
         private final String mensagemDesenvolvedor;
-        private final String timestamp;
 
         public Erro(String mensagemUsuario, String mensagemDesenvolvedor) {
+            this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             this.mensagemUsuario = mensagemUsuario;
             this.mensagemDesenvolvedor = mensagemDesenvolvedor;
-            this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         }
 
         public String getMensagemUsuario() {
