@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
@@ -13,8 +15,15 @@ import java.util.Date;
 @NoArgsConstructor
 public class PessoaJuridicaDTO extends PessoaDTO {
 
+    @NotNull
+    @NotEmpty
     private String inscEstadual;
+    @NotNull
+    @NotEmpty
     private String inscMunicipal;
+    @NotNull
+    @NotEmpty
     private String nomeFantasia;
+    @NotNull
     private Date DataFundacao;
 }

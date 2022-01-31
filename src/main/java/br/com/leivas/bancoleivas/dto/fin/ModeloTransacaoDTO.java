@@ -3,6 +3,9 @@ package br.com.leivas.bancoleivas.dto.fin;
 import br.com.leivas.bancoleivas.dto.BaseDTO;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 @Builder
@@ -10,7 +13,12 @@ import lombok.*;
 @NoArgsConstructor
 public class ModeloTransacaoDTO extends BaseDTO {
 
+    @NotNull
     private Integer codigo;
+    @NotNull
+    @NotEmpty
     private String nome;
+    @NotNull
+    @NotEmpty
     private String transacaoStrategy;
 }

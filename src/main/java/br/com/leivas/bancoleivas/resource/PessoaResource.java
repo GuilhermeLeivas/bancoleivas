@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaResource {
@@ -31,7 +33,7 @@ public class PessoaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PutMapping
-    public ResponseEntity<?> atualizaPessoa(@RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<?> atualizaPessoa(@RequestBody @Valid PessoaDTO pessoaDTO) {
         Pessoa pessoaAtualizada = this.pessoaService.atualizaPessoa(pessoaDTO);
         return ResponseEntity.status(HttpStatus.OK).body(pessoaAtualizada);
     }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/modelo/transacao")
 public class ModeloTransacaoResource {
@@ -32,7 +34,7 @@ public class ModeloTransacaoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping
-    public ResponseEntity<?> criaNovoModeloTransacao(@RequestBody ModeloTransacaoDTO novoModelo) {
+    public ResponseEntity<?> criaNovoModeloTransacao(@RequestBody @Valid ModeloTransacaoDTO novoModelo) {
         ModeloTransacao modeloTransacao = this.modeloTransacaoService.criaNovoModelo(novoModelo);
         return ResponseEntity.status(HttpStatus.CREATED).body(modeloTransacao);
     }

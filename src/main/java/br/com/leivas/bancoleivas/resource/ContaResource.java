@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/conta")
@@ -36,7 +37,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping(value = "/fisica/nova", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> novaContaFisica(@RequestBody PessoaFisicaDTO pessoa, HttpServletResponse response) {
+    public ResponseEntity<?> novaContaFisica(@RequestBody @Valid PessoaFisicaDTO pessoa, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
@@ -50,7 +51,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping(value = "/juridica/nova", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> novaContaJuridica(@RequestBody PessoaJuridicaDTO pessoa, HttpServletResponse response) {
+    public ResponseEntity<?> novaContaJuridica(@RequestBody @Valid PessoaJuridicaDTO pessoa, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
