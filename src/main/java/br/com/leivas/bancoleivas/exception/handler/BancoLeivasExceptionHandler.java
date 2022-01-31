@@ -2,22 +2,38 @@ package br.com.leivas.bancoleivas.exception.handler;
 
 import br.com.leivas.bancoleivas.exception.custom.*;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @ControllerAdvice
 public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler {
-    // MISC
+
+    private final MessageSource messageSource;
+
+    public BancoLeivasExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    // *********************** MISC ***********************
     @NonNull
     @Override // Para atributos não identificados no JSON
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -77,6 +93,24 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
     public ResponseEntity<Object> handleTransacaoSemImplementacaoConhecida(TransacaoSemImplementacaoConhecida ex, WebRequest webRequest) {
         Erro erro = new Erro(ex.getMessage(), this.getCause(ex));
         return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_IMPLEMENTED, webRequest);
+    }
+
+    // *********************** HANDLER DAS VALIDAÇÕES JAVAX ***********************
+    @NonNull
+    @Override // Bean validation
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(@NotNull MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<Erro> errosBinding = criarListaDeErros(ex.getBindingResult());
+        return handleExceptionInternal(ex, errosBinding, headers, status, request);
+    }
+
+    private List<Erro> criarListaDeErros(@NotNull BindingResult bindingResult) { // Método responsável para buscar as mensagens de erros na validação
+        List<Erro> erros = new ArrayList<>();
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            String mensagemUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+            String mensagemDesenvolvedor = fieldError.toString();
+            erros.add(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        }
+        return erros;
     }
 
     private String getCause(Throwable ex) {

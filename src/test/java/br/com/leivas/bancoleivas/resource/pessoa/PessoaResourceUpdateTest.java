@@ -17,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -39,6 +40,8 @@ public class PessoaResourceUpdateTest extends BaseMockTest {
     private PessoaResource pessoaResource;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private MessageSource messageSource;
     private MockMvc mockMvc;
 
     @BeforeEach
@@ -46,7 +49,7 @@ public class PessoaResourceUpdateTest extends BaseMockTest {
     public void setup() {
         this.tearDown();
         MockitoAnnotations.openMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(pessoaResource).setControllerAdvice(new BancoLeivasExceptionHandler()).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(pessoaResource).setControllerAdvice(new BancoLeivasExceptionHandler(messageSource)).build();
     }
 
     @Test

@@ -11,6 +11,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +33,8 @@ public class ContaResourceDeleteTest extends BaseMockTest {
     private ContaService contaService;
     @InjectMocks
     private ContaResource contaResource;
+    @Autowired
+    private MessageSource messageSource;
     private MockMvc mockMvc;
 
     @BeforeEach
@@ -38,7 +42,7 @@ public class ContaResourceDeleteTest extends BaseMockTest {
     public void setup() {
         this.tearDown();
         MockitoAnnotations.openMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(contaResource).setControllerAdvice(new BancoLeivasExceptionHandler()).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(contaResource).setControllerAdvice(new BancoLeivasExceptionHandler(messageSource)).build();
     }
 
     @Override
