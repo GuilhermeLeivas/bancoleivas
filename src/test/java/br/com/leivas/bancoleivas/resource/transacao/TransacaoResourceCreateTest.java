@@ -32,19 +32,25 @@ public class TransacaoResourceCreateTest extends BaseTest {
     Long fakeNumeroContaOrigem = 450L;
     Long fakeNumeroContaDestino = 1000L;
     BigDecimal valorTransacao = new BigDecimal("450.50");
-    int codigoTransacao = 201;
     TransacaoDTO transacaoDTO;
 
     @Test
-    public void novaTransacao() throws Exception {
-        this.buildTransacaoDTO();
-        MockHttpServletResponse response = this.geraNovaTransacao();
+    public void novaTransacaoCliente() throws Exception {
+        this.buildTransacaoDTO(201);
+        MockHttpServletResponse response = this.geraNovaTransacao("/transacao/cliente/nova");
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
-    private MockHttpServletResponse geraNovaTransacao() throws Exception {
+    @Test
+    public void novaTransacaoOperacional() throws Exception {
+        this.buildTransacaoDTO(200);
+        MockHttpServletResponse response = this.geraNovaTransacao("/transacao/operacional/nova");
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+    private MockHttpServletResponse geraNovaTransacao(String resource) throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/transacao")
+                .post(resource)
                 .content(this.objectMapper.writeValueAsString(this.transacaoDTO))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -52,12 +58,12 @@ public class TransacaoResourceCreateTest extends BaseTest {
         return result.getResponse();
     }
 
-    private void buildTransacaoDTO() {
+    private void buildTransacaoDTO(Integer codigo) {
         this.transacaoDTO = TransacaoDTO.builder()
                 .numeroContaOrigem(this.fakeNumeroContaOrigem)
                 .numeroContaDestino(this.fakeNumeroContaDestino)
                 .valor(this.valorTransacao)
-                .codigoTransacao(this.codigoTransacao)
+                .codigoTransacao(codigo)
                 .build();
     }
 }
