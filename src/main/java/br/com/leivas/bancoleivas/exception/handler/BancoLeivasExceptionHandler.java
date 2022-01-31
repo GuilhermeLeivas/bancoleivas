@@ -55,10 +55,16 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     // *********************** HANDLERS DE EXCEPTIONS LIGADAS A TRANSAÇÃO ***********************
-    @ExceptionHandler({FalhaNaGeracaoDeTransacao.class})
-    public ResponseEntity<Object> handleFalhaNaGeracaoDeTransacao(FalhaNaGeracaoDeTransacao ex, WebRequest webRequest) {
+    @ExceptionHandler({TransacaoNaoEncontradaException.class})
+    public ResponseEntity<Object> handleTransacaoNaoEncontradaException(TransacaoNaoEncontradaException ex, WebRequest webRequest) {
         Erro erro = new Erro(ex.getMessage(), this.getCause(ex));
-        return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.UNAUTHORIZED, webRequest);
+        return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler({TransacaoSemImplementacaoConhecida.class})
+    public ResponseEntity<Object> handleTransacaoSemImplementacaoConhecida(TransacaoSemImplementacaoConhecida ex, WebRequest webRequest) {
+        Erro erro = new Erro(ex.getMessage(), this.getCause(ex));
+        return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_IMPLEMENTED, webRequest);
     }
 
     private String getCause(Throwable ex) {

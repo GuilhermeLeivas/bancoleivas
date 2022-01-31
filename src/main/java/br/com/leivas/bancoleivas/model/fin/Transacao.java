@@ -34,6 +34,9 @@ public class Transacao extends BaseEntity<TransacaoDTO, Transacao> {
     private Conta contaDestino;
     @Column
     private BigDecimal valor;
+    @ManyToOne
+    @JoinColumn(name = "MODELOTRANSACAOID", referencedColumnName = "ID")
+    private ModeloTransacao modeloTransacao;
     @Column
     private Long numeroProtocolo;
 
@@ -41,26 +44,27 @@ public class Transacao extends BaseEntity<TransacaoDTO, Transacao> {
     @JsonIgnore
     private ITransacaoStrategy executionStrategy;
 
-    public void setContaOrigem(Conta contaOrigem) {
-        this.contaOrigem = contaOrigem;
+    public void executaTransacao() {
+        this.executionStrategy.executeStrategy(this);
     }
 
-    public void setContaDestino(Conta contaDestino) {
+    public void adicionaContaOrigemContaDestino(Conta contaOrigem, Conta contaDestino) {
+        this.contaOrigem = contaOrigem;
         this.contaDestino = contaDestino;
+    }
+
+    public void adicionaModeloTransacao(ModeloTransacao modeloTransacao) {
+        this.modeloTransacao = modeloTransacao;
+        this.executionStrategy = new TransacaoStrategyFactory().produce(modeloTransacao.getTransacaoStrategy());
+    }
+
+    public void adicionaNumeroProtocolo(NumeroProtocolo numeroProtocolo) {
+        this.numeroProtocolo = numeroProtocolo.getNumero();
     }
 
     @Override
     public Transacao fromDTO(TransacaoDTO dto) {
         this.valor = dto.getValor();
-        this.executionStrategy = new TransacaoStrategyFactory().produce(dto.getCodigoTransacao());
         return this;
-    }
-
-    public void executaTransacao() {
-        this.executionStrategy.executeStrategy(this);
-    }
-
-    public void adicionaNumeroProtocolo(NumeroProtocolo numeroProtocolo) {
-        this.numeroProtocolo = numeroProtocolo.getNumero();
     }
 }

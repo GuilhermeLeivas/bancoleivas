@@ -32,7 +32,7 @@ public class TransacaoResourceCreateTest extends BaseTest {
     Long fakeNumeroContaOrigem = 450L;
     Long fakeNumeroContaDestino = 1000L;
     BigDecimal valorTransacao = new BigDecimal("450.50");
-    int codigoTransacao = 200;
+    int codigoTransacao = 201;
     TransacaoDTO transacaoDTO;
 
     @Test
