@@ -7,6 +7,8 @@ import br.com.leivas.bancoleivas.model.reg.PessoaJuridica;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter
@@ -17,6 +19,8 @@ import java.util.Objects;
 @JsonDeserialize(using = PessoaDTODeserializer.class)
 public abstract class PessoaDTO extends BaseDTO {
 
+    @NotNull
+    @NotEmpty
     private CadastroNacionalDTO cadastroNacional;
 
 

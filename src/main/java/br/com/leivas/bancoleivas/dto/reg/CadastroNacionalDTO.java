@@ -4,6 +4,8 @@ import br.com.leivas.bancoleivas.dto.BaseDTO;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter
@@ -13,8 +15,14 @@ import java.util.Objects;
 @NoArgsConstructor
 public class CadastroNacionalDTO extends BaseDTO {
 
+    @NotNull
+    @NotEmpty
     private String numero;
+    @NotNull
+    @NotEmpty
     private String emissor;
+    @NotNull
+    @NotEmpty
     private CadastroNacional.TipoCadastroNacional tipo;
 
     @Override
