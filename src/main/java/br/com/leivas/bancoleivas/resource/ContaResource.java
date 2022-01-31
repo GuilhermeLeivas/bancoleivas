@@ -1,14 +1,14 @@
 package br.com.leivas.bancoleivas.resource;
 
-import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaJuridicaDTO;
 import br.com.leivas.bancoleivas.event.createdResourceDestinationEvent;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.service.ContaService;
-import br.com.leivas.bancoleivas.util.swagger.SwaggerJsonExamples;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

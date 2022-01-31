@@ -1,5 +1,6 @@
 package br.com.leivas.bancoleivas.service;
 
+import br.com.leivas.bancoleivas.dto.fin.ModeloTransacaoDTO;
 import br.com.leivas.bancoleivas.exception.custom.TransacaoNaoEncontradaException;
 import br.com.leivas.bancoleivas.model.fin.ModeloTransacao;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
@@ -15,6 +16,12 @@ public class ModeloTransacaoService {
 
     public ModeloTransacaoService(ModeloTransacaoRepository modeloTransacaoRepository) {
         this.modeloTransacaoRepository = modeloTransacaoRepository;
+    }
+
+    public ModeloTransacao criaNovoModelo(ModeloTransacaoDTO novoModelo) {
+        ModeloTransacao modeloTransacao = new ModeloTransacao().fromDTO(novoModelo);
+        modeloTransacao = this.modeloTransacaoRepository.save(modeloTransacao);
+        return modeloTransacao;
     }
 
     public Transacao adicionaTransacaoStrategy(Transacao transacao, Integer codigo) {
