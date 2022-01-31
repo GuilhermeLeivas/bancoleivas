@@ -5,6 +5,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -15,6 +17,15 @@ import java.util.Date;
 
 @ControllerAdvice
 public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler {
+    // MISC
+    @NonNull
+    @Override // Para atributos não identificados no JSON
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String mensagemUsuario = "Dados incorretos";
+        String mensagemDesenvolvedor = ex.getCause().toString();
+        Erro erro = new Erro(mensagemUsuario, mensagemDesenvolvedor);
+        return handleExceptionInternal(ex, erro, headers, status, request);
+    }
 
     // *********************** HANDLERS DE EXCEPTIONS LIGADAS A CADASTRO NACIONAL ***********************
     @ExceptionHandler({CadastroNacionalInvalido.class})
