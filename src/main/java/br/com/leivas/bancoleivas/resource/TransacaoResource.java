@@ -39,7 +39,7 @@ public class TransacaoResource {
     })
     @PostMapping("/cliente/nova")
     public ResponseEntity<?> novaTransacaoCliente(@RequestBody @Valid TransacaoDTO transacaoDTO) {
-        Transacao novaTransacao = this.transacaoService.novaTransacaoCliente(transacaoDTO, CLIENTE);
+        Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, CLIENTE);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
     }
 
@@ -53,7 +53,7 @@ public class TransacaoResource {
     })
     @PostMapping("/operacional/nova")
     public ResponseEntity<?> novaTransacaoOperacional(@RequestBody @Valid TransacaoDTO transacaoDTO) {
-        Transacao novaTransacao = this.transacaoService.novaTransacaoCliente(transacaoDTO, OPERACIONAL);
+        Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, OPERACIONAL);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
     }
 }
