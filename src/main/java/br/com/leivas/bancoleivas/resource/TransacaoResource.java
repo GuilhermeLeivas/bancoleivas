@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static br.com.leivas.bancoleivas.model.fin.ModeloTransacao.ExecutacaoDaTransacao.CLIENTE;
+import static br.com.leivas.bancoleivas.model.fin.ModeloTransacao.ExecutacaoDaTransacao.OPERACIONAL;
+
 
 @RestController
 @RequestMapping("/transacao")
@@ -27,16 +30,30 @@ public class TransacaoResource {
         this.transacaoService = transacaoService;
     }
 
-    @ApiOperation(value = "Endpoint utilizado para efetivar uma nova transação entre contas.")
+    @ApiOperation(value = "Endpoint utilizado para efetivar uma nova transação feita pelo CLIENTE. Como transferência, saque, etc...")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Nova transação retornada", response = Transacao.class),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 404, message = "Conta de origem ou Conta de destino não encontrada no sistema", response = BancoLeivasExceptionHandler.Erro.class),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
-    @PostMapping
-    public ResponseEntity<?> novaTransacao(@RequestBody @Valid TransacaoDTO transacaoDTO) {
-        Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO);
+    @PostMapping("/cliente/nova")
+    public ResponseEntity<?> novaTransacaoCliente(@RequestBody @Valid TransacaoDTO transacaoDTO) {
+        Transacao novaTransacao = this.transacaoService.novaTransacaoCliente(transacaoDTO, CLIENTE);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
+    }
+
+    @ApiOperation(value = "Endpoint utilizado para efetivar uma nova transação feita de forma operacional, " +
+            "por um caixa eletrônico, um caixa do banco, tais como depósito ou empréstimo.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Nova transação retornada", response = Transacao.class),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 404, message = "Conta de origem ou Conta de destino não encontrada no sistema", response = BancoLeivasExceptionHandler.Erro.class),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
+    })
+    @PostMapping("/operacional/nova")
+    public ResponseEntity<?> novaTransacaoOperacional(@RequestBody @Valid TransacaoDTO transacaoDTO) {
+        Transacao novaTransacao = this.transacaoService.novaTransacaoCliente(transacaoDTO, OPERACIONAL);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
     }
 }

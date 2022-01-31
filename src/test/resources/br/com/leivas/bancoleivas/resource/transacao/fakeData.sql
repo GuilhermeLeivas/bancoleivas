@@ -21,8 +21,8 @@ values (1, 1, 450, 1, 1500, 1, '2022-01-30', '2022-01-30');
 insert into regconta(id, agenciaid, numero, pessoaid, saldo, optmisticklock, dtcreate, dtupdate)
 values (2, 1, 1000, 2, 10500, 1, '2022-01-30', '2022-01-30');
 
-insert into finmodelotransacao (id, codigo, nome, transacaostrategy, optmisticklock, dtcreate, dtupdate)
-values (1, 200, 'Depósito', 'br.com.leivas.bancoleivas.strategy.DepositoStrategy', 1, '2022-01-30', '2022-01-30');
+insert into finmodelotransacao (id, codigo, nome, executacaodatransacao, transacaostrategy, optmisticklock, dtcreate, dtupdate)
+values (1, 200, 'Depósito', 1, 'br.com.leivas.bancoleivas.strategy.DepositoStrategy', 1, '2022-01-30', '2022-01-30');
 
-insert into finmodelotransacao (id, codigo, nome, transacaostrategy, optmisticklock, dtcreate, dtupdate)
-values (2, 201, 'Transferência', 'br.com.leivas.bancoleivas.strategy.TransferenciaStrategy', 1, '2022-01-30', '2022-01-30');
+insert into finmodelotransacao (id, codigo, nome, executacaodatransacao, transacaostrategy, optmisticklock, dtcreate, dtupdate)
+values (2, 201, 'Transferência', 0, 'br.com.leivas.bancoleivas.strategy.TransferenciaStrategy', 1, '2022-01-30', '2022-01-30');

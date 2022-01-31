@@ -24,8 +24,8 @@ public class ModeloTransacaoService {
         return modeloTransacao;
     }
 
-    public Transacao adicionaTransacaoStrategy(Transacao transacao, Integer codigo) {
-        Optional<ModeloTransacao> modelo = this.modeloTransacaoRepository.findByCodigo(codigo);
+    public Transacao adicionaTransacaoStrategy(Transacao transacao, Integer codigo, ModeloTransacao.ExecutacaoDaTransacao executacaoDaTransacao) {
+        Optional<ModeloTransacao> modelo = this.modeloTransacaoRepository.findByCodigo(codigo, executacaoDaTransacao);
         if (modelo.isEmpty()) {
             throw new TransacaoNaoEncontradaException(String.format("Transação com código %s não encontrada!", codigo));
         }
