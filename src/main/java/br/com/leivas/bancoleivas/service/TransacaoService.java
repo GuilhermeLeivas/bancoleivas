@@ -16,20 +16,22 @@ public class TransacaoService {
     private final TransacaoRepository transacaoRepository;
     private final NumeroProtocoloRepository numeroProtocoloRepository;
     private final ContaService contaService;
+    private final ModeloTransacaoService modeloTransacaoService;
 
-    public TransacaoService(TransacaoRepository transacaoRepository, NumeroProtocoloRepository numeroProtocoloRepository, ContaService contaService) {
+    public TransacaoService(TransacaoRepository transacaoRepository, NumeroProtocoloRepository numeroProtocoloRepository, ContaService contaService, ModeloTransacaoService modeloTransacaoService) {
         this.transacaoRepository = transacaoRepository;
         this.numeroProtocoloRepository = numeroProtocoloRepository;
         this.contaService = contaService;
+        this.modeloTransacaoService = modeloTransacaoService;
     }
 
     public Transacao novaTransacao(TransacaoDTO transacaoDTO) {
         Conta contaOrigem = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaOrigem());
         Conta contaDestino = this.contaService.findContaByNumero(transacaoDTO.getNumeroContaDestino());
         Transacao novaTransacao = new Transacao().fromDTO(transacaoDTO);
-        novaTransacao.setContaOrigem(contaOrigem);
-        novaTransacao.setContaDestino(contaDestino);
+        novaTransacao.adicionaContaOrigemContaDestino(contaOrigem, contaDestino);
         novaTransacao.adicionaNumeroProtocolo(this.geraNumeroProtocolo());
+        novaTransacao = this.modeloTransacaoService.adicionaTransacaoStrategy(novaTransacao, transacaoDTO.getCodigoTransacao());
         novaTransacao = this.transacaoRepository.save(novaTransacao);
         novaTransacao.executaTransacao();
         this.contaService.atualizaMultiplasContas(contaOrigem, contaDestino);
