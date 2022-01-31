@@ -25,4 +25,4 @@ insert into finmodelotransacao (id, codigo, nome, transacaostrategy, optmistickl
 values (1, 200, 'Depósito', 'br.com.leivas.bancoleivas.strategy.DepositoStrategy', 1, '2022-01-30', '2022-01-30');
 
 insert into finmodelotransacao (id, codigo, nome, transacaostrategy, optmisticklock, dtcreate, dtupdate)
-values (1, 201, 'Transferência', 'br.com.leivas.bancoleivas.strategy.TransferenciaStrategy', 1, '2022-01-30', '2022-01-30');
+values (2, 201, 'Transferência', 'br.com.leivas.bancoleivas.strategy.TransferenciaStrategy', 1, '2022-01-30', '2022-01-30');
