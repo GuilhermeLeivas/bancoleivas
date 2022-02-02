@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Locale;
 
 @Getter
 @ToString
@@ -26,6 +27,10 @@ public class Permissao extends BaseEntity<PermissaoDTO, Permissao> {
 
     public Long getId() {
         return id;
+    }
+
+    public String getDescricaoUpperCase() {
+        return this.descricao.toUpperCase(Locale.ROOT);
     }
 
     @Override
