@@ -13,7 +13,8 @@ import javax.persistence.*;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "FINMODELOTRANSACAO")
+@Table(name = "FINMODELOTRANSACAO",uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"codigo", "executacaoDaTransacao", "transacaoStrategy"})})
 @SequenceGenerator(name = "seqFinModeloTransacao", sequenceName = "SEQFINMODELOTRANSACAO", allocationSize = 1)
 public class ModeloTransacao extends BaseEntity<ModeloTransacaoDTO, ModeloTransacao> {
 

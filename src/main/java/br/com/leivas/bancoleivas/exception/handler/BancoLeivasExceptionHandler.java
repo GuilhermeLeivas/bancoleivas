@@ -2,6 +2,7 @@ package br.com.leivas.bancoleivas.exception.handler;
 
 import br.com.leivas.bancoleivas.exception.custom.*;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -93,6 +94,13 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
     public ResponseEntity<Object> handleTransacaoSemImplementacaoConhecida(TransacaoSemImplementacaoConhecida ex, WebRequest webRequest) {
         Erro erro = new Erro(ex.getMessage(), this.getCause(ex));
         return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_IMPLEMENTED, webRequest);
+    }
+
+    // *********************** HANDLERS DE EXCEPTIONS LIGADAS AO BANCO DE DADOS ***********************
+    @ExceptionHandler({ConstraintViolationException.class})
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest webRequest) {
+        Erro erro = new Erro(ex.getCause().getMessage(), this.getCause(ex));
+        return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.CONFLICT, webRequest);
     }
 
     // *********************** HANDLER DAS VALIDAÇÕES JAVAX ***********************
