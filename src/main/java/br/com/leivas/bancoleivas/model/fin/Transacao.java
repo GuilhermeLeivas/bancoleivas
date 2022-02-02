@@ -6,16 +6,15 @@ import br.com.leivas.bancoleivas.model.BaseEntity;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.strategy.ITransacaoStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "FINTRANSACAO")
 @SequenceGenerator(name = "seqFinTransacao", sequenceName = "SEQFINTRANSACAO", allocationSize = 1)
