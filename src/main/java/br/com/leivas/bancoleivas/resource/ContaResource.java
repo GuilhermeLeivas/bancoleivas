@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -65,6 +66,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @GetMapping(value = "/info/{numeroConta}", produces = "application/json")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read')")
     public ResponseEntity<?> contaInfo(@PathVariable Long numeroConta) {
         Conta conta = this.contaService.contaInfo(numeroConta);
         return ResponseEntity.status(HttpStatus.OK).body(conta);
