@@ -2,6 +2,8 @@ package br.com.leivas.bancoleivas.dto.reg;
 
 import br.com.leivas.bancoleivas.dto.BaseDTO;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -13,15 +15,19 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel
 public class CadastroNacionalDTO extends BaseDTO {
 
     @NotNull
     @NotEmpty
+    @ApiModelProperty(example = "Número do CPF ou do CPJ completo")
     private String numero;
     @NotNull
     @NotEmpty
+    @ApiModelProperty(example = "Emissor do documento, como SSP")
     private String emissor;
     @NotNull
+    @ApiModelProperty(example = "Tipo do documento 'CPF' ou 'CNPJ'")
     private CadastroNacional.TipoCadastroNacional tipo;
 
     @Override
