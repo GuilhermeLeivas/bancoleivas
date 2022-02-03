@@ -7,11 +7,13 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,6 +33,8 @@ import org.springframework.security.oauth2.server.authorization.config.ProviderS
 import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.io.File;
+import java.security.KeyStore;
 import java.time.Duration;
 import java.util.UUID;
 
@@ -39,6 +43,12 @@ import java.util.UUID;
 public class AuthorizationServerConfig {
 
     private final PasswordEncoder passwordEncoder;
+    @Value("${bancoleivas.resources.keystore.rsa.file.path}")
+    private String rsaKeyPath;
+    @Value("${bancoleivas.resources.keystore.rsa.senha}")
+    private String rsaKeyPassword;
+    @Value("${bancoleivas.resources.keystore.rsa.alias}")
+    private String rsaKeyAlias;
 
     public AuthorizationServerConfig(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -85,11 +95,13 @@ public class AuthorizationServerConfig {
     }
 
     @Bean // Creates RSAKey that is responsible for JWT signature.
-    public JWKSet signatureRSAKey() throws JOSEException {
-        RSAKey rsaKey = new RSAKeyGenerator(2048)
-                .keyID(UUID.randomUUID().toString())
-                .keyUse(KeyUse.SIGNATURE)
-                .generate();
+    public JWKSet signatureRSAKey() throws Exception {
+        File jksFile = new ClassPathResource(this.rsaKeyPath).getFile();
+        KeyStore keyStore = KeyStore
+                .Builder
+                .newInstance(jksFile, new KeyStore.PasswordProtection(this.rsaKeyPassword.toCharArray()))
+                .getKeyStore();
+        final RSAKey rsaKey = RSAKey.load(keyStore, this.rsaKeyAlias, this.rsaKeyPassword.toCharArray());
         return new JWKSet(rsaKey);
     }
 
