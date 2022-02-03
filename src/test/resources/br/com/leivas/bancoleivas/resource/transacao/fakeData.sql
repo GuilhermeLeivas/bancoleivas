@@ -1,6 +1,3 @@
-insert into regagencia(id, nome, numero, optmisticklock, dtcreate, dtupdate)
-values (1, 'Agencia Sao Paulo', 395, 1, '2022-01-30', '2022-01-30');
-
 insert into regcadastronacional(id, numero, digito, emissor, tipo, optmisticklock, dtcreate, dtupdate)
 values (1, '766264150', '34', 'ssp', 0, 1, '2022-01-30', '2022-01-30');
 insert into regpessoa(id, cadastronacionalid, optmisticklock, dtcreate, dtupdate)
@@ -15,20 +12,26 @@ values (2, 2, 1, '2022-01-30', '2022-01-30');
 insert into regpessoajuridica(id, inscestadual, inscmunicipal, nomefantasia, datafundacao)
 values (2, '122', '23434', 'Susi de F Leivas', '2014-01-12');
 
-insert into regconta(id, agenciaid, numero, pessoaid, saldo, optmisticklock, dtcreate, dtupdate)
-values (1, 1, 450, 1, 1500, 1, '2022-01-30', '2022-01-30');
-
-insert into regconta(id, agenciaid, numero, pessoaid, saldo, optmisticklock, dtcreate, dtupdate)
-values (2, 1, 1000, 2, 10500, 1, '2022-01-30', '2022-01-30');
-
 insert into authpermissao(id, descricao, optmisticklock, dtcreate, dtupdate)
 values (1, 'Cliente', 1, '2022-02-03', '2022-02-03');
 
-insert into authusuario(id, contaid, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
-values(1, 1, '$2a$10$Do0ZKEbU695XVsE1efVXM.kAxj0pOMv79xULt6pVD8MD2vvgwwb/.', 1, 1, '2022-02-03', '2022-02-03');
+insert into authpermissao(id, descricao, optmisticklock, dtcreate, dtupdate)
+values (2, 'Admin', 1, '2022-02-03', '2022-02-03');
 
-insert into authusuario(id, contaid, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
-values(2, 2, '$2a$10$8Ny3ofum.985oxR.ZHDh/ubvnRVKmko6BVRT20rgHRZ5neWvgwtaq', 1, 1, '2022-02-03', '2022-02-03');
+insert into authusuario(id, identificacao, username, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
+values(1, 'Guilherme Leivas', 'Guilherme450', '$2a$10$Do0ZKEbU695XVsE1efVXM.kAxj0pOMv79xULt6pVD8MD2vvgwwb/.', 1, 1, '2022-02-03', '2022-02-03');
+
+insert into authusuario(id, identificacao, username, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
+values(2, 'Susi de F Leivas', 'Susi1000' '$2a$10$8Ny3ofum.985oxR.ZHDh/ubvnRVKmko6BVRT20rgHRZ5neWvgwtaq', 1, 1, '2022-02-03', '2022-02-03');
+
+insert into authusuario(id, identificacao, username, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
+values(3, 'Administrador', 'Admin', '$2a$10$8Ny3ofum.985oxR.ZHDh/ubvnRVKmko6BVRT20rgHRZ5neWvgwtaq', 2, 1, '2022-02-03', '2022-02-03');
+
+insert into regconta(id, numero, pessoaid, usuarioid, saldo, optmisticklock, dtcreate, dtupdate)
+values (1, 450, 1, 1, 1500, 1, '2022-01-30', '2022-01-30');
+
+insert into regconta(id, numero, pessoaid, usuarioid, saldo, optmisticklock, dtcreate, dtupdate)
+values (2, 1000, 2, 2, 10500, 1, '2022-01-30', '2022-01-30');
 
 insert into finmodelotransacao (id, codigo, nome, executacaodatransacao, transacaostrategy, optmisticklock, dtcreate, dtupdate)
 values (1, 200, 'Depósito', 1, 'br.com.leivas.bancoleivas.strategy.DepositoStrategy', 1, '2022-01-30', '2022-01-30');

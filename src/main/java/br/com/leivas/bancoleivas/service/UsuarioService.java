@@ -21,12 +21,18 @@ public class UsuarioService {
         this.permissaoRepository = permissaoRepository;
     }
 
-    public Usuario criaUsuarioConta(Conta conta, PessoaDTO pessoa) {
+    public Conta criaUsuarioConta(Conta conta, PessoaDTO pessoa) {
         Usuario usuario = new Usuario();
-        usuario.setConta(conta);
         usuario.setPermissao(this.permissaoRepository.findByDescricao("CLIENTE").get());
+        usuario.setIdentificacao(pessoa.nomeReferencia());
+        usuario.setUsername(this.montaUsername(pessoa.nomeReferencia(), conta));
         usuario.setSenha(pessoa.getDetalhesUsuario().getSenhaDesejada());
         usuario = this.usuarioRepository.save(usuario);
-        return usuario;
+        conta.setUsuario(usuario);
+        return conta;
+    }
+
+    private String montaUsername(String nome, Conta conta) {
+        return nome.split(" ")[0].trim() + conta.getNumero();
     }
 }

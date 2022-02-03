@@ -10,7 +10,7 @@ public class UsuarioSistema extends User {
     private final Usuario usuario;
 
     public UsuarioSistema(Usuario usuario,  GrantedAuthority authority) {
-        super(usuario.getConta().getNumero().toString(), usuario.getSenha(), List.of(authority));
+        super(usuario.getUsername(), usuario.getSenha(), List.of(authority));
         this.usuario = usuario;
     }
 

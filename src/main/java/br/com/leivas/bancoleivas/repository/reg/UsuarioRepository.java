@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    @Query("SELECT usuario FROM Usuario usuario " +
-            "INNER JOIN usuario.conta conta " +
+    @Query("SELECT usuario FROM Conta conta  " +
+            "INNER JOIN conta.usuario usuario " +
             "WHERE conta.numero = ?1")
     Optional<Usuario> findUsuarioByNumeroConta(Long numeroConta);
 }

@@ -3,6 +3,7 @@ package br.com.leivas.bancoleivas.model.reg;
 import br.com.leivas.bancoleivas.dto.reg.ContaDTO;
 import br.com.leivas.bancoleivas.factory.PessoaFactory;
 import br.com.leivas.bancoleivas.model.BaseEntity;
+import br.com.leivas.bancoleivas.model.auth.Usuario;
 import br.com.leivas.bancoleivas.model.fin.LancamentoExtrato;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,14 +32,14 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqRegConta")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "AGENCIAID", referencedColumnName = "ID")
-    private Agencia agencia;
     @Column(unique = true, nullable = false)
     private Long numero;
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "PESSOAID", referencedColumnName = "ID")
     private Pessoa pessoa;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USUARIOID", referencedColumnName = "ID")
+    private Usuario usuario;
     @Column
     private BigDecimal saldo = BigDecimal.ZERO;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -52,6 +53,10 @@ public class Conta extends BaseEntity<ContaDTO, Conta> {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public boolean possuiSaldoParaTransacao(Transacao transacao) {

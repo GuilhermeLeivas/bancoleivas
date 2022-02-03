@@ -20,9 +20,10 @@ public class Usuario extends BaseEntity<UsuarioDTO, Usuario> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqAuthUsuario")
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CONTAID", referencedColumnName = "ID")
-    private Conta conta;
+    @Column(nullable = false)
+    private String identificacao;
+    @Column(nullable = false)
+    private String username;
     @Column
     private String senha;
     @ManyToOne

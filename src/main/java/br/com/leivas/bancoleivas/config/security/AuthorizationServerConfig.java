@@ -82,7 +82,8 @@ public class AuthorizationServerConfig {
         return (context) -> {
             UsernamePasswordAuthenticationToken authenticationToken = context.getPrincipal();
             UsuarioSistema usuario = (UsuarioSistema) authenticationToken.getPrincipal();
-            context.getClaims().claim("nome", usuario.getUsuario().getConta().getPessoa().nomeReferencia());
+            context.getClaims().claim("nome", usuario.getUsuario().getIdentificacao());
+            context.getClaims().claim("username", usuario.getUsuario().getUsername());
             context.getClaims().claim("authorities", usuario.getUsuario().getPermissao().getDescricaoUpperCase());
         };
     }
