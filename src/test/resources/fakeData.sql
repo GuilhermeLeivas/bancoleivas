@@ -21,7 +21,7 @@ insert into regpessoafisica(id, nome, datanascimento, sexo, nomepai, nomemae, no
 values (currval('seqregpessoa'), 'Guilherme Leivas', '1998-10-02', 0, 'Carlos Alberto', 'Susi de F Leivas', null);
 
 insert into authusuario(id, identificacao, username, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
-values(nextval('seqauthusuario'), 'Guilherme Leivas', 'Guilherme450', '$2a$10$Do0ZKEbU695XVsE1efVXM.kAxj0pOMv79xULt6pVD8MD2vvgwwb/.',
+values(nextval('seqauthusuario'), 'Guilherme Leivas', 'Guilherme450', '$2a$09$rWuGW7YUmGNuH/cel5po3uP1lV0PFpqLrHo7lyZaG9BbXfu21GvcK',
        currval('seqauthpermissao'), 1, '2022-02-03', '2022-02-03');
 
 insert into regconta(id, numero, pessoaid, usuarioid, saldo, optmisticklock, dtcreate, dtupdate)
@@ -35,7 +35,7 @@ insert into regpessoajuridica(id, inscestadual, inscmunicipal, nomefantasia, dat
 values (currval('seqregpessoa'), '122', '23434', 'Susi de F Leivas', '2014-01-12');
 
 insert into authusuario(id, identificacao, username, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
-values(nextval('seqauthusuario'), 'Susi de F Leivas', 'Susi1000', '$2a$10$8Ny3ofum.985oxR.ZHDh/ubvnRVKmko6BVRT20rgHRZ5neWvgwtaq',
+values(nextval('seqauthusuario'), 'Susi de F Leivas', 'Susi1000', '$2a$09$rWuGW7YUmGNuH/cel5po3uP1lV0PFpqLrHo7lyZaG9BbXfu21GvcK',
        currval('seqauthpermissao'), 1, '2022-02-03', '2022-02-03');
 
 insert into regconta(id, numero, pessoaid, usuarioid, saldo, optmisticklock, dtcreate, dtupdate)
@@ -46,7 +46,7 @@ insert into authpermissao(id, descricao, optmisticklock, dtcreate, dtupdate)
 values (nextval('seqauthpermissao'), 'Admin', 1, '2022-02-03', '2022-02-03');
 
 insert into authusuario(id, identificacao, username, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
-values(nextval('seqauthusuario'), 'Administrador', 'Admin', '$2a$10$8Ny3ofum.985oxR.ZHDh/ubvnRVKmko6BVRT20rgHRZ5neWvgwtaq',
+values(nextval('seqauthusuario'), 'Administrador', 'Admin', '$2a$09$rWuGW7YUmGNuH/cel5po3uP1lV0PFpqLrHo7lyZaG9BbXfu21GvcK',
        currval('seqauthpermissao'), 1, '2022-02-03', '2022-02-03');
 
 insert into finmodelotransacao (id, codigo, nome, executacaodatransacao, transacaostrategy, optmisticklock, dtcreate, dtupdate)

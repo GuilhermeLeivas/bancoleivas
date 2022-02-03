@@ -23,8 +23,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String numeroConta) throws UsernameNotFoundException {
-        Optional<Usuario> usuarioCandidato = this.usuarioRepository.findUsuarioByNumeroConta(Long.valueOf(numeroConta));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Usuario> usuarioCandidato = this.usuarioRepository.findByUsername(username);
         if (usuarioCandidato.isEmpty()) {
             throw new CredenciasIncorretas("As credencias informadas estão incorretas!");
         }

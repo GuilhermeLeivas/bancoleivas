@@ -14,4 +14,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             "INNER JOIN conta.usuario usuario " +
             "WHERE conta.numero = ?1")
     Optional<Usuario> findUsuarioByNumeroConta(Long numeroConta);
+
+    @Query("SELECT usuario FROM Usuario usuario WHERE UPPER(usuario.username) = UPPER(?1)")
+    Optional<Usuario> findByUsername(String username);
 }
