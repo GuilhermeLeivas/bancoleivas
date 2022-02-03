@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@AutoConfigureMockMvc
-@Sql(scripts = "fakeData.sql")
+@AutoConfigureMockMvc(addFilters = false)
+@Sql(scripts = "classpath:fakeData.sql")
 public class TransacaoResourceCreateTest extends BaseTest {
 
     @Autowired
