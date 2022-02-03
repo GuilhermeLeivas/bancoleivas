@@ -1,19 +1,19 @@
 {
   "properties": [
     {
-      "name": "bancoleivas.resources.keystore.rsa.file.path",
+      "name": "bancoleivas.resource.appKeyStore.rsaFile",
       "type": "java.lang.String",
       "description": "Caminho relativo até a chave RSA."
     },
     {
-      "name": "bancoleivas.resources.keystore.rsa.senha",
-      "type": "java.lang.String",
-      "description": "Senha para arquivo que contêm chave RSA para assinatura do token JWT."
-    },
-    {
-      "name": "bancoleivas.resources.keystore.rsa.alias",
+      "name": "bancoleivas.resource.appKeyStore.rsaAlias",
       "type": "java.lang.String",
       "description": "Alias dado para a chave RSA ao criar o arquivo jks utilizando keytool."
+    },
+    {
+      "name": "bancoleivas.resource.appKeyStore.rsaPassword",
+      "type": "java.lang.String",
+      "description": "Senha para arquivo que contêm chave RSA para assinatura do token JWT."
     }
   ]
 }

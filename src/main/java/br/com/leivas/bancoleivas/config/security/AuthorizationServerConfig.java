@@ -1,10 +1,10 @@
 package br.com.leivas.bancoleivas.config.security;
 
+import br.com.leivas.bancoleivas.config.propertie.BancoLeivasProperties;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -40,15 +40,11 @@ import java.util.UUID;
 public class AuthorizationServerConfig {
 
     private final PasswordEncoder passwordEncoder;
-    @Value("${bancoleivas.resources.keystore.rsa.file.path}")
-    private String rsaKeyPath;
-    @Value("${bancoleivas.resources.keystore.rsa.senha}")
-    private String rsaKeyPassword;
-    @Value("${bancoleivas.resources.keystore.rsa.alias}")
-    private String rsaKeyAlias;
+    private final BancoLeivasProperties bancoLeivasProperties;
 
-    public AuthorizationServerConfig(PasswordEncoder passwordEncoder) {
+    public AuthorizationServerConfig(PasswordEncoder passwordEncoder, BancoLeivasProperties bancoLeivasProperties) {
         this.passwordEncoder = passwordEncoder;
+        this.bancoLeivasProperties = bancoLeivasProperties;
     }
 
     @Bean // Oauth2 Clients configuration
@@ -93,12 +89,15 @@ public class AuthorizationServerConfig {
 
     @Bean // Creates RSAKey that is responsible for JWT signature.
     public JWKSet signatureRSAKey() throws Exception {
-        File jksFile = new ClassPathResource(this.rsaKeyPath).getFile();
+        String rsaFile = this.bancoLeivasProperties.getResource().getAppKeyStore().getRsaFile();
+        String rsaAlias = this.bancoLeivasProperties.getResource().getAppKeyStore().getRsaAlias();
+        String rsaPassword = this.bancoLeivasProperties.getResource().getAppKeyStore().getRsaPassword();
+        File jksFile = new ClassPathResource(rsaFile).getFile();
         KeyStore keyStore = KeyStore
                 .Builder
-                .newInstance(jksFile, new KeyStore.PasswordProtection(this.rsaKeyPassword.toCharArray()))
+                .newInstance(jksFile, new KeyStore.PasswordProtection(rsaPassword.toCharArray()))
                 .getKeyStore();
-        final RSAKey rsaKey = RSAKey.load(keyStore, this.rsaKeyAlias, this.rsaKeyPassword.toCharArray());
+        final RSAKey rsaKey = RSAKey.load(keyStore, rsaAlias, rsaPassword.toCharArray());
         return new JWKSet(rsaKey);
     }
 
