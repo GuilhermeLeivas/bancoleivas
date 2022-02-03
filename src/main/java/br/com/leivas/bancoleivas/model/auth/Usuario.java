@@ -22,7 +22,7 @@ public class Usuario extends BaseEntity<UsuarioDTO, Usuario> {
     private Long id;
     @Column(nullable = false)
     private String identificacao;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column
     private String senha;
