@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class PessoaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PutMapping
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> atualizaPessoa(@RequestBody @Valid PessoaDTO pessoaDTO) {
         Pessoa pessoaAtualizada = this.pessoaService.atualizaPessoa(pessoaDTO);
         return ResponseEntity.status(HttpStatus.OK).body(pessoaAtualizada);

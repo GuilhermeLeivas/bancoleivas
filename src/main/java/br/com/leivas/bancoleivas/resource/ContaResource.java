@@ -38,6 +38,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping(value = "/fisica/nova", consumes = "application/json", produces = "application/json")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaContaFisica(@RequestBody @Valid PessoaFisicaDTO pessoa, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
@@ -52,6 +53,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping(value = "/juridica/nova", consumes = "application/json", produces = "application/json")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaContaJuridica(@RequestBody @Valid PessoaJuridicaDTO pessoa, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
@@ -80,6 +82,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @DeleteMapping("/{numeroConta}")
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> deletaConta(@PathVariable Long numeroConta) {
         this.contaService.deletaConta(numeroConta);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class ModeloTransacaoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> criaNovoModeloTransacao(@RequestBody @Valid ModeloTransacaoDTO novoModelo) {
         ModeloTransacao modeloTransacao = this.modeloTransacaoService.criaNovoModelo(novoModelo);
         return ResponseEntity.status(HttpStatus.CREATED).body(modeloTransacao);
