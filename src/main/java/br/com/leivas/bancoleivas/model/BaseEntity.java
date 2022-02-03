@@ -28,6 +28,7 @@ public abstract class BaseEntity<D, E> implements DTOConverter<D, E> {
     protected void prePersistBaseEntity() {
         this.dtCreate = new Date();
         this.dtUpdate = new Date();
+        this.optmisticklock = 1;
     }
 
     @PreUpdate

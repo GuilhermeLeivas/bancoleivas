@@ -20,7 +20,7 @@ public class CadastroNacionalDTO extends BaseDTO {
 
     @NotNull
     @NotEmpty
-    @ApiModelProperty(example = "Número do CPF ou do CPJ completo")
+    @ApiModelProperty(example = "Número do CPF ou do CPJ completo e sem pontuações")
     private String numero;
     @NotNull
     @NotEmpty

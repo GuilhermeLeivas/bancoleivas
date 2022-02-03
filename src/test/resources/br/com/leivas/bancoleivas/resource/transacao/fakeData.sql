@@ -21,6 +21,15 @@ values (1, 1, 450, 1, 1500, 1, '2022-01-30', '2022-01-30');
 insert into regconta(id, agenciaid, numero, pessoaid, saldo, optmisticklock, dtcreate, dtupdate)
 values (2, 1, 1000, 2, 10500, 1, '2022-01-30', '2022-01-30');
 
+insert into authpermissao(id, descricao, optmisticklock, dtcreate, dtupdate)
+values (1, 'Cliente', 1, '2022-02-03', '2022-02-03');
+
+insert into authusuario(id, contaid, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
+values(1, 1, '$2a$10$Do0ZKEbU695XVsE1efVXM.kAxj0pOMv79xULt6pVD8MD2vvgwwb/.', 1, 1, '2022-02-03', '2022-02-03');
+
+insert into authusuario(id, contaid, senha, permissaoid, optmisticklock, dtcreate, dtupdate)
+values(2, 2, '$2a$10$8Ny3ofum.985oxR.ZHDh/ubvnRVKmko6BVRT20rgHRZ5neWvgwtaq', 1, 1, '2022-02-03', '2022-02-03');
+
 insert into finmodelotransacao (id, codigo, nome, executacaodatransacao, transacaostrategy, optmisticklock, dtcreate, dtupdate)
 values (1, 200, 'Depósito', 1, 'br.com.leivas.bancoleivas.strategy.DepositoStrategy', 1, '2022-01-30', '2022-01-30');
 

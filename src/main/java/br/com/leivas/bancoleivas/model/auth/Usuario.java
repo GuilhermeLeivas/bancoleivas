@@ -26,7 +26,7 @@ public class Usuario extends BaseEntity<UsuarioDTO, Usuario> {
     @Column
     private String senha;
     @ManyToOne
-    @JoinColumn(name = "permissao_id", referencedColumnName = "ID")
+    @JoinColumn(name = "PERMISSAOID", referencedColumnName = "ID")
     private Permissao permissao;
 
     public void setPermissao(Permissao permissao) {
