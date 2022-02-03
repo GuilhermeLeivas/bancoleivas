@@ -1,6 +1,7 @@
 package br.com.leivas.bancoleivas.dto.reg;
 
 import br.com.leivas.bancoleivas.dto.BaseDTO;
+import br.com.leivas.bancoleivas.dto.auth.UsuarioDTO;
 import br.com.leivas.bancoleivas.dto.deserialize.PessoaDTODeserializer;
 import br.com.leivas.bancoleivas.model.reg.PessoaFisica;
 import br.com.leivas.bancoleivas.model.reg.PessoaJuridica;
@@ -21,6 +22,8 @@ public abstract class PessoaDTO extends BaseDTO {
 
     @NotNull
     private CadastroNacionalDTO cadastroNacional;
+    @NotNull
+    private UsuarioDTO detalhesUsuario;
 
 
     public String nomeReferencia() {

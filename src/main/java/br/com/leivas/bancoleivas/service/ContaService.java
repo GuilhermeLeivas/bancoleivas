@@ -21,11 +21,13 @@ public class ContaService {
     private final ContaRepository contaRepository;
     private final PessoaService pessoaService;
     private final NumeroContaRepository numeroContaRepository;
+    private final UsuarioService usuarioService;
 
-    public ContaService(ContaRepository contaRepository, PessoaService pessoaService, NumeroContaRepository numeroContaRepository) {
+    public ContaService(ContaRepository contaRepository, PessoaService pessoaService, NumeroContaRepository numeroContaRepository, UsuarioService usuarioService) {
         this.contaRepository = contaRepository;
         this.pessoaService = pessoaService;
         this.numeroContaRepository = numeroContaRepository;
+        this.usuarioService = usuarioService;
     }
 
     public Conta novaConta(PessoaDTO pessoaDTO) {
@@ -37,6 +39,7 @@ public class ContaService {
         Conta novaConta = new Conta(pessoa);
         novaConta.adicionaNumeroConta(this.geraNumeroConta());
         novaConta = this.contaRepository.save(novaConta);
+        this.usuarioService.criaUsuarioConta(novaConta, pessoaDTO);
         return novaConta;
     }
 
