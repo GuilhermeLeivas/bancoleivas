@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Profile("security-disable")
+@Profile("security-disabled")
 @EnableWebSecurity
-public class SecurityDisableConfig extends WebSecurityConfigurerAdapter {
+public class SecurityDisabledConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
