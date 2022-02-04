@@ -46,11 +46,15 @@ Fala Dev!
   um access token para acessarmos os endpoints protegidos. Pensando nisto irei disponibilizar um link com uma collection do postman que conta com todos requests
   para geração do token, bem como os endpoints protegidos com seus jsons pré preenchidos.
  
- <h2>Geração de access Token</h2>
+ <h2>Geração de access Token e Endpoints</h2>
   
   - Para gerar um acess token, bem como um refresh token via postman, você primeiramente precisa gerar um authorization code, o qual será assim, utilizado para gerar
- o access token. Um tutorial detalhado com fotos se encontra aqui nesse link 
+ o access token. Somente com o access token poderemos acessar os endpoints. Um tutorial detalhado com fotos se encontra aqui nesse link 
  <a href="https://docs.google.com/document/d/13z88Flto8DMpYwQdiGzoNBChQdfukP4ASnifBbnuKss/edit?usp=sharing">Geração Token</a>, por favor dê uma olhada!
  
+ <h2>Adendos</h2>
+ 
+  Este projeto ainda está em desenvolvimento, algumas partes muito interessantes e necessárias ainda precisam ser feitas. Mas por hora, é um projeto totalmente
+  testável.
 </body>
 </html>
