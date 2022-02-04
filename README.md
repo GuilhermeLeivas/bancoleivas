@@ -6,7 +6,7 @@
  
 Fala Dev!
 
-<h2>Tecnologias utilizadas</h2>
+<h3>Tecnologias utilizadas</h3>
 
   - JDK 17
   - Spring boot
@@ -17,9 +17,9 @@ Fala Dev!
   - Hibernate
   - IntelliJ
 
-Aqui vai algumas informações para rodar a aplicação.
+<h4> Algumas informações para rodar o projeto corretamente:<h4>
 
-Requisitos
+<h3>Requisitos<h3>
 
   - Você precisará de um container docker postgresql rodando na sua máquina, ou um postgresql instalado na sua máquina.
   Importante ressaltar que se preciso, você pode mudar a senha utilizada para acessar sua database no arquivo application.properties.
