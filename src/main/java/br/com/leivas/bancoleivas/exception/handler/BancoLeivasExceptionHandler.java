@@ -96,6 +96,12 @@ public class BancoLeivasExceptionHandler extends ResponseEntityExceptionHandler 
         return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_IMPLEMENTED, webRequest);
     }
 
+    @ExceptionHandler({ValorParaOperacaoNaoPermitido.class})
+    public ResponseEntity<Object> handleValorParaOperacaoNaoPermitido(ValorParaOperacaoNaoPermitido ex, WebRequest webRequest) {
+        Erro erro = new Erro(ex.getMessage(), this.getCause(ex));
+        return this.handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, webRequest);
+    }
+
     // *********************** HANDLERS DE EXCEPTIONS LIGADAS AO BANCO DE DADOS ***********************
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest webRequest) {
