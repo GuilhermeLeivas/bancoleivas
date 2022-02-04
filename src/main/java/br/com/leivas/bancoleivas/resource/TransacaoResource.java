@@ -1,12 +1,14 @@
 package br.com.leivas.bancoleivas.resource;
 
 import br.com.leivas.bancoleivas.dto.fin.TransacaoDTO;
+import br.com.leivas.bancoleivas.event.createdResourceDestinationEvent;
 import br.com.leivas.bancoleivas.exception.handler.BancoLeivasExceptionHandler;
 import br.com.leivas.bancoleivas.model.fin.Transacao;
 import br.com.leivas.bancoleivas.service.TransacaoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import static br.com.leivas.bancoleivas.model.fin.ModeloTransacao.ExecutacaoDaTransacao.CLIENTE;
@@ -26,9 +29,11 @@ import static br.com.leivas.bancoleivas.model.fin.ModeloTransacao.ExecutacaoDaTr
 public class TransacaoResource {
 
     private final TransacaoService transacaoService;
+    private final ApplicationEventPublisher publisher;
 
-    public TransacaoResource(TransacaoService transacaoService) {
+    public TransacaoResource(TransacaoService transacaoService, ApplicationEventPublisher publisher) {
         this.transacaoService = transacaoService;
+        this.publisher = publisher;
     }
 
     @ApiOperation(value = "Endpoint utilizado para efetivar uma nova transação feita pelo CLIENTE. Como transferência, saque, etc...")
@@ -40,8 +45,9 @@ public class TransacaoResource {
     })
     @PostMapping("/cliente/nova")
     @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
-    public ResponseEntity<?> novaTransacaoCliente(@RequestBody @Valid TransacaoDTO transacaoDTO) {
+    public ResponseEntity<?> novaTransacaoCliente(@RequestBody @Valid TransacaoDTO transacaoDTO, HttpServletResponse response) {
         Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, CLIENTE);
+        this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaTransacao.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
     }
 
@@ -58,8 +64,9 @@ public class TransacaoResource {
             "or hasAuthority('CAIXA') " +
             "or hasAuthority('AUTOMATICO') " +
             "or hasAuthority('GERENTE')) and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
-    public ResponseEntity<?> novaTransacaoOperacional(@RequestBody @Valid TransacaoDTO transacaoDTO) {
+    public ResponseEntity<?> novaTransacaoOperacional(@RequestBody @Valid TransacaoDTO transacaoDTO, HttpServletResponse response) {
         Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, OPERACIONAL);
+        this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaTransacao.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
     }
 }
