@@ -2,6 +2,7 @@ package br.com.leivas.bancoleivas.resource.modelo;
 
 import br.com.leivas.bancoleivas.BaseTest;
 import br.com.leivas.bancoleivas.dto.fin.ModeloTransacaoDTO;
+import br.com.leivas.bancoleivas.model.fin.ModeloTransacao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class ModeloTransacaoResourceCreateTest extends BaseTest {
 
     @Autowired
@@ -38,9 +39,10 @@ public class ModeloTransacaoResourceCreateTest extends BaseTest {
 
     private ModeloTransacaoDTO getDummyDataModelo() {
         return ModeloTransacaoDTO.builder()
-                .codigo(201)
-                .nome("Transferência")
-                .transacaoStrategy("br.com.leivas.bancoleivas.strategy.TransferenciaStrategy")
+                .codigo(202)
+                .nome("Saque")
+                .transacaoStrategy("br.com.leivas.bancoleivas.strategy.SaqueStrategy")
+                .executacaoDaTransacao(ModeloTransacao.ExecutacaoDaTransacao.CLIENTE)
                 .build();
     }
 }

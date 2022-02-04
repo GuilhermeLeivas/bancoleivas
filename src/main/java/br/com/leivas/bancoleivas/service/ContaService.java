@@ -4,6 +4,7 @@ import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.exception.custom.ClienteJaCadastradoNoSistema;
 import br.com.leivas.bancoleivas.exception.custom.ContaInexistenteException;
 import br.com.leivas.bancoleivas.factory.PessoaFactory;
+import br.com.leivas.bancoleivas.model.auth.Usuario;
 import br.com.leivas.bancoleivas.model.reg.Conta;
 import br.com.leivas.bancoleivas.model.reg.NumeroConta;
 import br.com.leivas.bancoleivas.model.reg.Pessoa;
@@ -21,11 +22,13 @@ public class ContaService {
     private final ContaRepository contaRepository;
     private final PessoaService pessoaService;
     private final NumeroContaRepository numeroContaRepository;
+    private final UsuarioService usuarioService;
 
-    public ContaService(ContaRepository contaRepository, PessoaService pessoaService, NumeroContaRepository numeroContaRepository) {
+    public ContaService(ContaRepository contaRepository, PessoaService pessoaService, NumeroContaRepository numeroContaRepository, UsuarioService usuarioService) {
         this.contaRepository = contaRepository;
         this.pessoaService = pessoaService;
         this.numeroContaRepository = numeroContaRepository;
+        this.usuarioService = usuarioService;
     }
 
     public Conta novaConta(PessoaDTO pessoaDTO) {
@@ -36,6 +39,7 @@ public class ContaService {
         pessoa = this.pessoaService.salvaPessoa(pessoa);
         Conta novaConta = new Conta(pessoa);
         novaConta.adicionaNumeroConta(this.geraNumeroConta());
+        novaConta = this.usuarioService.criaUsuarioConta(novaConta, pessoaDTO);
         novaConta = this.contaRepository.save(novaConta);
         return novaConta;
     }

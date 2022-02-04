@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping(value = "/fisica/nova", consumes = "application/json", produces = "application/json")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaContaFisica(@RequestBody @Valid PessoaFisicaDTO pessoa, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
@@ -51,6 +53,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping(value = "/juridica/nova", consumes = "application/json", produces = "application/json")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaContaJuridica(@RequestBody @Valid PessoaJuridicaDTO pessoa, HttpServletResponse response) {
         Conta novaConta = contaService.novaConta(pessoa);
         this.publisher.publishEvent(new createdResourceDestinationEvent(this, response, novaConta.getId()));
@@ -65,6 +68,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @GetMapping(value = "/info/{numeroConta}", produces = "application/json")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read')")
     public ResponseEntity<?> contaInfo(@PathVariable Long numeroConta) {
         Conta conta = this.contaService.contaInfo(numeroConta);
         return ResponseEntity.status(HttpStatus.OK).body(conta);
@@ -78,6 +82,7 @@ public class ContaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @DeleteMapping("/{numeroConta}")
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> deletaConta(@PathVariable Long numeroConta) {
         this.contaService.deletaConta(numeroConta);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

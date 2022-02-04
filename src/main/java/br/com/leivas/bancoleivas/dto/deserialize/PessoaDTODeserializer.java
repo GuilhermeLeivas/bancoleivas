@@ -1,12 +1,12 @@
 package br.com.leivas.bancoleivas.dto.deserialize;
 
+import br.com.leivas.bancoleivas.dto.auth.UsuarioDTO;
 import br.com.leivas.bancoleivas.dto.reg.CadastroNacionalDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaFisicaDTO;
 import br.com.leivas.bancoleivas.dto.reg.PessoaJuridicaDTO;
 import br.com.leivas.bancoleivas.model.reg.CadastroNacional;
 import br.com.leivas.bancoleivas.model.reg.PessoaFisica;
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JavaType;
@@ -47,9 +47,11 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
     public PessoaDTO deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         this.jsonNode = jsonParser.getCodec().readTree(jsonParser);
         CadastroNacionalDTO cadastroNacionalDTO = this.fillCadastroNacionalDTO();
+        UsuarioDTO detalhesUsuario = this.fillDetalhesUsuario();
         try {
             this.pessoaDTO = cadastroNacionalDTO.getTipo() == CPF ? this.fillPessoaFisicaDTO() : this.fillPessoaJuridicaDTO();
             this.pessoaDTO.setCadastroNacional(cadastroNacionalDTO);
+            this.pessoaDTO.setDetalhesUsuario(detalhesUsuario);
         } catch (ParseException ex) {
             Logger.getLogger(getClass().getSimpleName()).log(Level.SEVERE, "Falha ao deserializar PessoaDTO {0}", ex);
         }
@@ -88,5 +90,13 @@ public class PessoaDTODeserializer extends StdDeserializer<PessoaDTO> {
                     this.jsonNode.get("cadastroNacional").get("emissor").asText() : null);
         }
         return cadastroNacionalDTO;
+    }
+
+    private UsuarioDTO fillDetalhesUsuario() {
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        if (this.jsonNode.get("detalhesUsuario") != null) {
+            usuarioDTO.setSenhaDesejada(this.jsonNode.get("detalhesUsuario").get("senhaDesejada").asText());
+        }
+        return usuarioDTO;
     }
 }

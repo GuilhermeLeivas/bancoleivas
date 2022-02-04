@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class ExtratoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @GetMapping
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read')")
     public ResponseEntity<?> extratoPorConta(ExtratoDTO pedidoExtrato, Pageable pageable) {
         Page<LancamentoExtrato> lancamentos = this.extratoService.lancamentosPorConta(pedidoExtrato, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(lancamentos);

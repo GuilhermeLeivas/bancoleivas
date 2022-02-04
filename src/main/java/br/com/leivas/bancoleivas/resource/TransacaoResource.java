@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class TransacaoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping("/cliente/nova")
+    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaTransacaoCliente(@RequestBody @Valid TransacaoDTO transacaoDTO) {
         Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, CLIENTE);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
@@ -52,6 +54,7 @@ public class TransacaoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping("/operacional/nova")
+    @PreAuthorize("(hasAuthority('CAIXA') OR hasAuthority('AUTOMATICO')) and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaTransacaoOperacional(@RequestBody @Valid TransacaoDTO transacaoDTO) {
         Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, OPERACIONAL);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);
