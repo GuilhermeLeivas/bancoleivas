@@ -49,7 +49,8 @@ Fala Dev!
  <h2>Geração de access Token</h2>
   
   - Para gerar um acess token, bem como um refresh token via postman, você primeiramente precisa gerar um authorization code, o qual será assim, utilizado para gerar
- o access token. Um tutorial detalhado com fotos se encontra aqui nesse link <a href="http://localhost:8080/swagger-ui-/index.html">Geração Token</a>, por favor dê uma olhada!
+ o access token. Um tutorial detalhado com fotos se encontra aqui nesse link 
+ <a href="https://docs.google.com/document/d/13z88Flto8DMpYwQdiGzoNBChQdfukP4ASnifBbnuKss/edit?usp=sharing">Geração Token</a>, por favor dê uma olhada!
  
 </body>
 </html>
