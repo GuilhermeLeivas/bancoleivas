@@ -7,6 +7,7 @@ import br.com.leivas.bancoleivas.model.fin.Transacao;
 import br.com.leivas.bancoleivas.repository.fin.ModeloTransacaoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,9 @@ public class ModeloTransacaoService {
         final ModeloTransacao modeloTransacao = modelo.get();
         transacao.adicionaModeloTransacao(modeloTransacao);
         return transacao;
+    }
+
+    public List<ModeloTransacao> listaTodosModelosTransacao() {
+        return this.modeloTransacaoRepository.findAll();
     }
 }
