@@ -25,7 +25,7 @@ Fala Dev!
   Importante ressaltar que se preciso, você pode mudar a senha utilizada para acessar sua database no arquivo application.properties.
   
   - Após você ter seu postgresql rodando, utilize alguma ferramenta como Dbeaver, DataGrip ou até mesmo o terminal, e crie uma database chamada "bancoleivas". 
-  Isto é necessário, pois diferente do Mysql, no postgresql não é possível definir a propriedade createDatabaseIfNotExists no application.properties.
+  Isto é necessário, pois diferente do Mysql, para postgresql não é possível definir a propriedade createDatabaseIfNotExists no application.properties.
   
   - Após esse setup inicial, você pode clonar o projeto e abri-lo na IDE IntelliJ (De preferência).
   
