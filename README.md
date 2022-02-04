@@ -17,9 +17,9 @@ Fala Dev!
   - Hibernate
   - IntelliJ
 
-<h4> Algumas informações para rodar o projeto corretamente:<h4>
+ <h4> Algumas informações para rodar o projeto corretamente:</h4>
 
-<h3>Requisitos<h3>
+ <h3>Requisitos</h3>
 
   - Você precisará de um container docker postgresql rodando na sua máquina, ou um postgresql instalado na sua máquina.
   Importante ressaltar que se preciso, você pode mudar a senha utilizada para acessar sua database no arquivo application.properties.
