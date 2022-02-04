@@ -45,5 +45,11 @@ Fala Dev!
   Utilizando este usuário você terá acesso a página de documentação, mas ficará complicado testar por lá em função de precisarmos gerar 
   um access token para acessarmos os endpoints protegidos. Pensando nisto irei disponibilizar um link com uma collection do postman que conta com todos requests
   para geração do token, bem como os endpoints protegidos com seus jsons pré preenchidos.
+ 
+ <h2>Geração de access Token</h2>
+  
+  - Para gerar um acess token, bem como um refresh token via postman, você primeiramente precisa gerar um authorization code, o qual será assim, utilizado para gerar
+ o access token. Um tutorial detalhado com fotos se encontra aqui nesse link, por favor dê uma olhada!
+ 
 </body>
 </html>
