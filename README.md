@@ -52,15 +52,15 @@ Fala Dev!
  o access token. Somente com o access token poderemos acessar os endpoints. Um tutorial detalhado com fotos se encontra aqui nesse link 
  <a href="https://docs.google.com/document/d/13z88Flto8DMpYwQdiGzoNBChQdfukP4ASnifBbnuKss/edit?usp=sharing">Geração Token</a>, por favor dê uma olhada!
  
+  <h2>Links</h2>
+  - <a href="http://localhost:8080/swagger-ui-/index.html">Documentação Swagger</a>
+  - <a href="https://docs.google.com/document/d/13z88Flto8DMpYwQdiGzoNBChQdfukP4ASnifBbnuKss/edit?usp=sharing">Geração Token</a>
+  - <a href="https://www.getpostman.com/collections/c0d201e6ac4bb45f4dbf">Collection Postman</a>
+ 
  <h2>Adendos</h2>
  
   Este projeto ainda está em desenvolvimento, algumas partes muito interessantes e necessárias ainda precisam ser feitas. Mas por hora, é um projeto totalmente
   testável.
- 
- <h2>Links</h2>
-  - <a href="http://localhost:8080/swagger-ui-/index.html">Documentação Swagger</a>
-  - <a href="https://docs.google.com/document/d/13z88Flto8DMpYwQdiGzoNBChQdfukP4ASnifBbnuKss/edit?usp=sharing">Geração Token</a>
-  - <a href="https://www.getpostman.com/collections/c0d201e6ac4bb45f4dbf">Collection Postman</a>
  
 </body>
 </html>
