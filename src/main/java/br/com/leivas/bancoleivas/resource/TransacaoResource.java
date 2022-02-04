@@ -54,7 +54,10 @@ public class TransacaoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PostMapping("/operacional/nova")
-    @PreAuthorize("(hasAuthority('CAIXA') OR hasAuthority('AUTOMATICO')) and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
+    @PreAuthorize("(hasAuthority('ADMIN') " +
+            "or hasAuthority('CAIXA') " +
+            "or hasAuthority('AUTOMATICO') " +
+            "or hasAuthority('GERENTE')) and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> novaTransacaoOperacional(@RequestBody @Valid TransacaoDTO transacaoDTO) {
         Transacao novaTransacao = this.transacaoService.novaTransacao(transacaoDTO, OPERACIONAL);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTransacao);

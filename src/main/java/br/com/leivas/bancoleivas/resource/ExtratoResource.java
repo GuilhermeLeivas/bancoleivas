@@ -32,7 +32,7 @@ public class ExtratoResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @GetMapping
-    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read')")
+    @PreAuthorize("(hasAuthority('ADMIN') or hasAuthority('GERENTE') or hasAuthority('GERENTE')) and hasAuthority('SCOPE_read')")
     public ResponseEntity<?> extratoPorConta(ExtratoDTO pedidoExtrato, Pageable pageable) {
         Page<LancamentoExtrato> lancamentos = this.extratoService.lancamentosPorConta(pedidoExtrato, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(lancamentos);

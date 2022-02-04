@@ -34,7 +34,7 @@ public class PessoaResource {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção", response = BancoLeivasExceptionHandler.Erro.class),
     })
     @PutMapping
-    @PreAuthorize("hasAuthority('CLIENTE') and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
+    @PreAuthorize("(hasAuthority('ADMIN') or hasAuthority('GERENTE') or hasAuthority('GERENTE')) and hasAuthority('SCOPE_read') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> atualizaPessoa(@RequestBody @Valid PessoaDTO pessoaDTO) {
         Pessoa pessoaAtualizada = this.pessoaService.atualizaPessoa(pessoaDTO);
         return ResponseEntity.status(HttpStatus.OK).body(pessoaAtualizada);
