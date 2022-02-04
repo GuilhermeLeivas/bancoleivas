@@ -52,11 +52,11 @@ Fala Dev!
  
   <h2>Links</h2>
  
-   - <a href="http://localhost:8080/swagger-ui-/index.html">Documentação Swagger (Link Local- Acessar após subir projeto)</a>
+   - <a href="http://localhost:8080/swagger-ui-/index.html">Documentação Swagger (Link Local - Acessar após subir projeto)</a>
  
    - <a 
         href="https://docs.google.com/document/d/13z88Flto8DMpYwQdiGzoNBChQdfukP4ASnifBbnuKss/edit?usp=sharing">
-       Geração Token(Link Local- Acessar após subir projeto)</a>
+       Geração Token(Link Local - Acessar após subir projeto)</a>
  
    - <a href="https://www.getpostman.com/collections/c0d201e6ac4bb45f4dbf">Collection Postman (Link para importação no Postman)</a>
  
