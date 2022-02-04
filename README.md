@@ -33,7 +33,7 @@ Fala Dev!
   Todavia, você pode setar o profile "security-disabled", o qual deixará todos endpoints desprotegidos, isso facilitará seus testes, caso deseje.
   
   - Caso tenha escolhido testar API sem segurança, você pode se dirigir até o endereço 
- <a href="localhost:8080/swagger-ui-/index.html">Documentação Swagger</a>, nesta página você terá acesso a todos endpoints documentados e além disso você testa-los diretamente por lá!
+ <a href="http://localhost:8080/swagger-ui-/index.html">Documentação Swagger</a>, nesta página você terá acesso a todos endpoints documentados e além disso você testa-los diretamente por lá!
   
   - Caso tenha escolhido testar a API com segurança oauth, sem problemas! você novamente pode acessar a página referida acima, mas no entanto você precisará
   de autenticação. Utilize o usuário Admin que será criado no startup da aplicação (para fins de teste).
