@@ -1,7 +1,12 @@
 
+<html lang="en">
+<head>
+</head>
+<body>
+ 
 Fala Dev!
 
-Tecnologias utilizadas
+<h2>Tecnologias utilizadas</h2>
 
   - JDK 17
   - Spring boot
@@ -40,5 +45,5 @@ Requisitos
   Utilizando este usuário você terá acesso a página de documentação, mas ficará complicado testar por lá em função de precisarmos gerar 
   um access token para acessarmos os endpoints protegidos. Pensando nisto irei disponibilizar um link com uma collection do postman que conta com todos requests
   para geração do token, bem como os endpoints protegidos com seus jsons pré preenchidos.
-  
-  
+</body>
+</html>
